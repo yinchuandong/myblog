@@ -2,23 +2,46 @@
  * Created by wangjiewen on 14-12-23.
  */
 
-window.onload = function(){
-    Index.init();
+$(function(){
     window.scrollTo(0,document.body.scrollHeight);
+//    Index.init();
 
-    var y = window.pageYOffset;
-    var scrollFunc = function (e) {
+    $("#bg-cloud").scrollingParallax({
+        staticSpeed: .45,
+        staticScrollLimit : false
+    });
+    $('#bg-star').scrollingParallax({
+        staticSpeed : .8,
+        staticScrollLimit : false
+    });
+
+    $(window).scroll(function(e){
+        debug(window.pageYOffset)
+    });
+
+    //控制鼠标滚轮
+    var lastTime = 0
+    $("body").mousewheel(function (e, delta) {
         e.preventDefault();
-        var delta = (e.wheelDelta > 0) ? -1 : 1;
-        delta = delta * 8;
-        window.scrollTo(0, y += delta);
-    }
-    /*注册事件*/
-    if(document.addEventListener){
-        document.addEventListener('DOMMouseScroll',scrollFunc,false);
-    }//W3C
-    document.onmousewheel=scrollFunc;//IE/Opera/Chrome
-//    console.log(window)
+        var curTime = (new Date()).getTime();
+        if(curTime - lastTime < 200){
+            return;
+        }else{
+            lastTime = curTime;
+        }
+        $.scrollTo.window().queue([]).stop();
+        if (delta < 0) {
+            $('body').stop().scrollTo('+=200', 500);
+        } else {
+            $('body').stop().scrollTo('-=200', 500);
+        }
+    })
 
 
+
+});
+
+
+function debug(msg){
+    console.log(msg)
 }
