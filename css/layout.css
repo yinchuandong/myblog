@@ -127,8 +127,12 @@
     position: relative;
 }
 
-.about-me-box .rocket{
 
+#rocket{
+    position: absolute;
+    z-index: 10000;
+    bottom: 20px;
+    left: 48%;
 }
 
 .earth{
@@ -142,6 +146,7 @@
     position: absolute;
     left: 0;
     top: 0;
+    z-index: -1;
 }
 
 #bg-cloud img{
@@ -157,6 +162,7 @@
     position: absolute;
     top: 0;
     left: 0;
+    z-index: 100;
 }
 
 #bg-star img{

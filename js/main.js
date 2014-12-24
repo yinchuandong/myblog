@@ -16,7 +16,7 @@ $(function(){
     });
 
     $(window).scroll(function(e){
-        debug(window.pageYOffset)
+//        debug(window.pageYOffset)
     });
 
     //控制鼠标滚轮
