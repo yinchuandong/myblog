@@ -4,7 +4,7 @@
 
 $(function(){
     window.scrollTo(0,document.body.scrollHeight);
-//    Index.init();
+    Rocket.init();
 
     $("#bg-cloud").scrollingParallax({
         staticSpeed: .45,
@@ -15,12 +15,8 @@ $(function(){
         staticScrollLimit : false
     });
 
-    $(window).scroll(function(e){
-//        debug(window.pageYOffset)
-    });
-
     //控制鼠标滚轮
-    var lastTime = 0
+    var lastTime = 0;
     $("body").mousewheel(function (e, delta) {
         e.preventDefault();
         var curTime = (new Date()).getTime();
@@ -37,7 +33,13 @@ $(function(){
         }
     })
 
+    setTimeout(function(){
+        $(window).scroll(function(e){
+//            debug(window.pageYOffset);
+            Rocket.move(e);
 
+        });
+    }, 1000);
 
 });
 
