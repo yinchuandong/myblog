@@ -74,13 +74,15 @@
     margin: 0 auto;
 }
 
+/*---------奖杯----------*/
 .trophy-layout{
     width: 100%;
-    height: 1000px;
+    height: 2000px;
     position: relative;
+
 }
 .trophy-layout img{
-    position: absolute;
+    position: fixed;
 }
 
 .trophy-box{
@@ -93,27 +95,49 @@
     top: 25%;
     display: none;
 }
-#trophy-1{
-    height: 1000px;
+#trophy-1 .trophy-rock{
+    top: 0;
+    right: -100px;
+    display: block;
 }
 .trophy-small{
     right: 0;
     top: 0;
 }
 
-.rocket-right{
-    right: 0;
+.rock-right{
+    left: 900px;
     top: 100px;
 }
-.rocket-left{
+.rock-left{
     left: 0;
 }
 
 #trophy-2 .trophy-rock{
     left: 100px;
-    top: 0px;
+    top: 0;
+    display: none;
 }
 
+#trophy-3 .trophy-rock{
+    display: none;
+}
+#trophy-4 .trophy-rock{
+    display: none;
+}
+#trophy-5 .trophy-rock{
+    display: none;
+}
+
+#trophy-6 .trophy-rock{
+    display: none;
+}
+
+#trophy-7 .trophy-rock{
+    display: none;
+}
+
+/*---------------*/
 #about-me{
     width: 100%;
     text-align: center;
@@ -123,21 +147,22 @@
     height: 310px;
     background: no-repeat url("../img/about-me-box.png");
     background-size: 100%;
-    margin: 0 auto;
+    margin: 0 auto 200px auto;
     position: relative;
 }
 
 
 #rocket{
-    position: absolute;
+    position: fixed;
     z-index: 10000;
-    bottom: 20px;
     left: 48%;
 }
 
 .earth{
     width: 70%;
-    margin-top: 100px;
+    height: 70%;
+    display: block;
+    margin: 0 auto;
 }
 #bg-cloud{
     width: 100%;

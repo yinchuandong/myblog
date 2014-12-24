@@ -4,7 +4,7 @@
 
 $(function(){
     window.scrollTo(0,document.body.scrollHeight);
-    Rocket.init();
+
 
     $("#bg-cloud").scrollingParallax({
         staticSpeed: .45,
@@ -34,6 +34,8 @@ $(function(){
     })
 
     setTimeout(function(){
+        Rocket.init();
+        Rock.init();
         $(window).scroll(function(e){
 //            debug(window.pageYOffset);
             Rocket.move(e);
