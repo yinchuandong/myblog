@@ -36,17 +36,12 @@ $(function(){
     setTimeout(function(){
         Rocket.init();
         Rock.init();
+        Animate.init();
         $(window).scroll(function(e){
-//            debug(window.pageYOffset);
             Rocket.move(e);
 
         });
     }, 1000);
-
-//    setTimeout(function(){
-//        var top = Rock.rockList[0].boom.bTop;
-//        $('body').stop().scrollTo(top, 1000);
-//    },3000);
 
 });
 
