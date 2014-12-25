@@ -97,33 +97,77 @@ var Rock = {
 
     init: function () {
         var self = this;
-        var winWidth = $(window).width();
-        self.rocket = $("#rocket");
-        var trophy1 = $("#trophy-1");
-        self.rock1 = trophy1.find(".trophy-rock");
-        self.rock1.css({
-            top: 0,
-            left: winWidth
-        });
-        var oLeft = trophy1.offset().left + trophy1.width();
-        var oTop = trophy1.offset().top;
-        var bLeft = self.rocket.offset().left;
-        var bTop = trophy1.offset().top + trophy1.height() / 2;
-        self.rock1.boom = {
-            oLeft: oLeft,
-            oTop: oTop,
-            bLeft: bLeft,
-            bTop: bTop,
-            inX: null,
-            inY: null,
-            distance: null
-        };
-        self.rockList.push(self.rock1);
-
-        self.getAllTrophy();
-        var top = Rocket.rTop;
+//        var winWidth = $(window).width();
+//        self.rocket = $("#rocket");
+//        var trophy1 = $("#trophy-1");
+//        self.rock1 = trophy1.find(".trophy-rock");
+//        self.rock1.css({
+//            top: 0,
+//            left: winWidth
+//        });
+//        var oLeft = trophy1.offset().left + trophy1.width();
+//        var oTop = trophy1.offset().top;
+//        var bLeft = self.rocket.offset().left;
+//        var bTop = trophy1.offset().top + trophy1.height() / 2;
+//        self.rock1.boom = {
+//            oLeft: oLeft,
+//            oTop: oTop,
+//            bLeft: bLeft,
+//            bTop: bTop,
+//            inX: null,
+//            inY: null,
+//            distance: null
+//        };
+//        self.rockList.push(self.rock1);
+//
+//        self.getAllTrophy();
+//        debugger
+//        $('body').stop().scrollTo(bTop - $(window).height()/2, 1000);
+        self.initA();
+        var bTop = self.rockList[0].boom.bTop;
 //        debugger
         $('body').stop().scrollTo(bTop - $(window).height()/2, 1000);
+    },
+
+    initA: function(){
+        var self = this;
+        var winWidth = $(window).width();
+        self.rocket = $("#rocket");
+        var trophy = $(".trophy-layout");
+        trophy.each(function (i, elem) {
+            elem = $(elem);
+            var rock = elem.find(".trophy-rock");
+            var direct = rock.attr("direct");
+
+            var oLeft = 0;
+            if(direct == "right"){
+                oLeft = elem.offset().left + elem.width();
+                rock.css({ top: 0, left: winWidth});
+            }else{
+                var rockWidth = rock.width();
+                oLeft = -rockWidth;
+                rock.css({ top: 0, left: -rockWidth});
+            }
+
+            var oTop = elem.offset().top;
+            var bLeft = self.rocket.offset().left;
+            var bTop = elem.offset().top + elem.height() / 2;
+            rock.boom = {
+                oLeft: oLeft,
+                oTop: oTop,
+                bLeft: bLeft,
+                bTop: bTop,
+                inX: null,
+                inY: null,
+                distance: null
+            };
+            self.rockList.push(rock);
+            debug(direct);
+            console.log(rock.boom);
+//            debugger
+        });
+        self.rockList.reverse();
+        self.getAllTrophy();
     },
 
     getAllTrophy: function(){
@@ -163,25 +207,17 @@ var Rock = {
         if(curIndex == -1){
             return;
         }
-        console.log(curIndex);
-//        debug($(window).scrollTop())
-//        debug(window.pageYOffset)
-        if(curIndex != 0){
-            return;
-        }
-        var boom = self.rockList[0].boom;
+//        console.log(curIndex);
+        var boom = self.rockList[curIndex].boom;
         if(boom.inX == null || boom.inY ==null){
-            var rock = self.rockList[0];
-            var inY = self.trophyOffset[0].bottom;
+            var inY = self.trophyOffset[curIndex].bottom;
             var inX = self.linearFunc(inY, boom.bLeft, boom.bTop, rOff.left, rOff.top);
             boom.inX = inX;
             boom.inY = inY;
             boom.distance = Math.sqrt((boom.bLeft - inX)*(boom.bLeft - inX) + (boom.bTop - inY)*(boom.bTop - inY));
-//            debugger
         }
 
-        self.doMove(self.rockList[0], boom);
-//        self.linearFunc(200, 50, 100, 75, 150);
+        self.doMove(self.rockList[curIndex], boom);
     },
 
     doMove: function(rock, boom){
@@ -202,12 +238,21 @@ var Rock = {
         var newLeft = (bLeft - oLeft)*per + oLeft;
         var newTop = (bTop - oTop)*per + oTop;
         newTop -= window.pageYOffset;
-        rock.css({
-            left: newLeft - rock.width()/5,
-            top: newTop
-        });
 
-
+        var direct = rock.attr("direct");
+        var attr = {};
+        if(direct == "right"){
+            attr = {
+                left: newLeft - rock.width()/5,
+                top: newTop
+            };
+        }else{
+            attr = {
+                left: newLeft - rock.width()/2,
+                top: newTop
+            }
+        }
+        rock.css(attr);
     },
 
     /**
@@ -232,23 +277,8 @@ var Rock = {
     
     scroll: function (isUp, isRight) {
         var self = this;
-//        self.move1(isUp);
         self.checkArea();
-        console.log(self.rock1.offset())
-    },
-
-    move1: function (isUp) {
-        var self = this;
-        var upDir = isUp ? 1 : -1;
-        var rightDir = isUp ? -1 : 1;
-        var node = self.rock1;
-        var top = parseInt(node.css("top"));
-        var left = parseInt(node.css("left"));
-//        debugger
-        node.css({
-            left: left + rightDir*4,
-            top: top + upDir*5
-        });
+//        console.log(self.rockList[0].offset())
     }
 
     

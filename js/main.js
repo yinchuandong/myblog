@@ -27,9 +27,9 @@ $(function(){
         }
         $.scrollTo.window().queue([]).stop();
         if (delta < 0) {
-            $('body').stop().scrollTo('+=100', 500);
+            $('body').stop().scrollTo('+=200', 500);
         } else {
-            $('body').stop().scrollTo('-=100', 500);
+            $('body').stop().scrollTo('-=200', 500);
         }
     })
 
