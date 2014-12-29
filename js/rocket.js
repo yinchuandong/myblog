@@ -26,7 +26,7 @@ var Rocket = {
 
     move: function(e){
         var self = this;
-        //控制掩饰
+        //控制岩石
         Rock.scroll(self.isUp(), self.isRight());
 
         if(self.isRunning){
