@@ -130,13 +130,13 @@ var Rock = {
         var attr = {};
         if (direct == "right") {
             attr = {
-                left: newLeft - rock.width() / 5,
-                top: newTop
+                left: newLeft ,
+                top: newTop - rock.height() / 2
             };
         } else {
             attr = {
-                left: newLeft - rock.width() / 2,
-                top: newTop
+                left: newLeft - rock.width() / 2 - self.rocket.width() - 40,
+                top: newTop - rock.height() / 2
             }
         }
         rock.css(attr);

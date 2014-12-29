@@ -23,7 +23,7 @@ var Animate = {
         var self = this;
         self.timer = setTimeout(function(){
             var bTop = self.posList[self.curIndex].top;
-            $('body').stop().scrollTo(bTop - $(window).height() / 2, 1000,{
+            $('body').stop().scrollTo(bTop - $(window).height() / 2, 2000,{
                 onAfter: function(){
 //                    debug("on after")
                     self.curIndex += 1;
