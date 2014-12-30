@@ -31,17 +31,19 @@ $(function(){
         } else {
             $('body').stop().scrollTo('-=200', 500);
         }
-    })
+    });
 
-    setTimeout(function(){
-        Rocket.init();
-        Rock.init();
-        Animate.init();
-        $(window).scroll(function(e){
-            Rocket.move(e);
+    Matrix.init();
 
-        });
-    }, 1000);
+//    setTimeout(function(){
+//        Rocket.init();
+//        Rock.init();
+//        Animate.init();
+//        $(window).scroll(function(e){
+//            Rocket.move(e);
+//
+//        });
+//    }, 1000);
 
 });
 
