@@ -36,41 +36,29 @@
     top: 25%;
 }
 
+/*-------- work-layout ------------*/
 #master-layout .work-layout{
     position: relative;
     width: 100%;
     min-height: 600px;
 }
 
-#master-layout .plant{
+.work-layout .planet{
     width: 30%;
     display: block;
 }
 
-#work-1 img{
+.work-layout .left{
+    position: absolute;
+    left: 0;
+}
+
+.work-layout .right{
     position: absolute;
     right: 0;
 }
 
-#work-3 img{
-    margin: 0 auto;
-}
-
-#work-4 img{
-    margin: 0 auto;
-}
-
-#work-5 img{
-    position: absolute;
-    right: 0;
-}
-
-#work-6 img{
-    position: absolute;
-    left: 30%;
-}
-
-#work-8 img{
+.work-layout .mid{
     margin: 0 auto;
 }
 
@@ -112,30 +100,6 @@
 .rock-left{
     left: 0;
 }
-
-/*#trophy-2 .trophy-rock{*/
-    /*left: 100px;*/
-    /*top: 0;*/
-    /*display: none;*/
-/*}*/
-
-/*#trophy-3 .trophy-rock{*/
-    /*display: none;*/
-/*}*/
-/*#trophy-4 .trophy-rock{*/
-    /*display: none;*/
-/*}*/
-/*#trophy-5 .trophy-rock{*/
-    /*display: none;*/
-/*}*/
-
-/*#trophy-6 .trophy-rock{*/
-    /*display: none;*/
-/*}*/
-
-/*#trophy-7 .trophy-rock{*/
-    /*display: none;*/
-/*}*/
 
 /*---------------*/
 #about-me{

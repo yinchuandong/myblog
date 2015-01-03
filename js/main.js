@@ -33,17 +33,17 @@ $(function(){
         }
     });
 
-    Matrix.init();
+//    Matrix.init();
 
-//    setTimeout(function(){
-//        Rocket.init();
-//        Rock.init();
-//        Animate.init();
-//        $(window).scroll(function(e){
-//            Rocket.move(e);
-//
-//        });
-//    }, 1000);
+    setTimeout(function(){
+        Rock.init();
+        Rocket.init();
+        Animate.init();
+        $(window).scroll(function(e){
+            Rocket.move(e);
+
+        });
+    }, 1000);
 
 });
 

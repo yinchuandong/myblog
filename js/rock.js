@@ -6,9 +6,9 @@
 //陨石
 var Rock = {
     rocket: null,
-    trophyList: [],
-    trophyOffset: [],
-    rockList: [],
+    trophyList: [], //奖杯区域的列表
+    trophyOffset: [], //奖杯区域的边界
+    rockList: [], //岩石区域的列表，其中boom对象包含了碰撞点的信息
 
     init: function () {
         var self = this;
@@ -20,7 +20,8 @@ var Rock = {
             var rock = elem.find(".trophy-rock");
             var direct = rock.attr("direct");
 
-            var oLeft = 0;
+            //calculate the initial position and boom position of rock
+            var oLeft = 0; // original left of rock
             if (direct == "right") {
                 oLeft = elem.offset().left + elem.width();
                 rock.css({ top: 0, left: winWidth});
@@ -30,7 +31,8 @@ var Rock = {
                 rock.css({ top: 0, left: -rockWidth});
             }
 
-            var oTop = elem.offset().top;
+            var oTop = elem.offset().top; // origin top of rock
+            //booming left and top
             var bLeft = self.rocket.offset().left;
             var bTop = elem.offset().top + elem.height() / 2;
             rock.boom = {
@@ -43,11 +45,25 @@ var Rock = {
                 distance: null
             };
             self.rockList.push(rock);
-            debug(direct);
-            console.log(rock.boom);
+
+            //calculate the area of trophy layout
+            var offset = elem.offset();
+            var width = elem.width();
+            var height = elem.height();
+            offset.right = offset.left + width;
+            offset.bottom = offset.top + height;
+            self.trophyOffset.push(offset);
+            self.trophyList.push(elem);
+            var workLayout = elem.prev(".work-layout");
+            workLayout.attr({
+                "b-left": bLeft,
+                "b-top": bTop
+            });
         });
+        //reverse list to fit the sequence of layout
         self.rockList.reverse();
-        self.getAllTrophy();
+        self.trophyOffset.reverse();
+        self.trophyList.reverse();
 
 //        var bTop = self.rockList[0].boom.bTop;
 //        $('body').stop().scrollTo(bTop - $(window).height() / 2, 1000,{
@@ -57,26 +73,10 @@ var Rock = {
 //        });
     },
 
-    getAllTrophy: function () {
-        var self = this;
-        var $trophies = $(".trophy-layout");
-        $trophies.each(function (i, cont) {
-            cont = $(cont);
-            var offset = cont.offset();
-            var width = cont.width();
-            var height = cont.height();
-            offset.right = offset.left + width;
-            offset.bottom = offset.top + height;
-            self.trophyOffset.push(offset);
-            self.trophyList.push(cont);
-//            debugger
-        });
-
-        self.trophyOffset.reverse();
-        self.trophyList.reverse();
-
-    },
-
+    /**
+     * check the bounds of trophy layout,
+     * and judge which layout is the current area
+     */
     checkArea: function () {
         var self = this;
         var len = self.trophyOffset.length;

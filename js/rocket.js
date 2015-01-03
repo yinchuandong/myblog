@@ -7,6 +7,7 @@ var Rocket = {
     windowHeight: 0,
     docHeight: 0,
     rocket: null,
+    posList: [], //火箭的驻停点
     isRunning: false,
     isActivated: false,
     rTop: 0, //火箭起始位置的top
@@ -22,6 +23,45 @@ var Rocket = {
         self.rTop = self.windowHeight - $("#j-earth").height() - self.rocket.height() / 4;
         self.rocket.css({top: self.rTop});
         self.lastPos = self.rocket.offset();
+        self.initPos();
+    },
+
+    initPos: function(){
+        var self = this;
+        var jLayout = $(".work-layout .planet");
+        jLayout.each(function (i, elem) {
+            elem = $(elem);
+            console.log($(elem).offset());
+            var pW = elem.width();
+            var pH = elem.height();
+            var offset = elem.offset();
+            var direct = elem.attr("direct");
+            var p1 = {x: offset.left + pW / 2, y: offset.top};//顶点
+            var p2 = {x: 0, y: offset.top + pH / 2};//中间点
+            var a = parseInt(Math.random()*100000) % 2;
+            switch (direct){
+                case 'left' :
+                    p2.x = offset.left + pW;
+                    break;
+                case 'right':
+                    p2.x = offset.left;
+                    break;
+                case 'mid-left'://从左边运动到中间
+                    p2.x = offset.left;
+                    break;
+                case 'mid-right'://从右边运动到中间
+                    p2.x = offset.left + pW;
+                    break;
+            }
+            var pBoom = Rock.rockList[i];
+            var arr = [
+                p1, p2
+            ];
+            self.posList.push(arr)
+//            var p1 = offset.
+        });
+        debugger
+
     },
 
     move: function(e){
