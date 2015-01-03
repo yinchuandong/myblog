@@ -55,9 +55,10 @@ var Rock = {
             self.trophyOffset.push(offset);
             self.trophyList.push(elem);
             var workLayout = elem.prev(".work-layout");
-            workLayout.attr({
+            elem.attr({
                 "b-left": bLeft,
-                "b-top": bTop
+                "b-top": bTop,
+                "b-from": "rock" //fly from rock after booming
             });
         });
         //reverse list to fit the sequence of layout

@@ -24,14 +24,17 @@ var Rocket = {
         self.rocket.css({top: self.rTop});
         self.lastPos = self.rocket.offset();
         self.initPos();
+        self.buildParabola();
     },
 
     initPos: function(){
         var self = this;
         var jLayout = $(".work-layout .planet");
+
+        //select 3 points to confirm a unique parabola equation
         jLayout.each(function (i, elem) {
             elem = $(elem);
-            console.log($(elem).offset());
+//            console.log($(elem).offset());
             var pW = elem.width();
             var pH = elem.height();
             var offset = elem.offset();
@@ -53,15 +56,44 @@ var Rocket = {
                     p2.x = offset.left + pW;
                     break;
             }
-            var pBoom = Rock.rockList[i];
+
+            var work = elem.parent(".work-layout");
+            var from = work.next("div");
+            var className = from.attr("class");
+            var pattern = new RegExp("(^|\\s)trophy-layout(\\s|$)");
+            var p3 = {};
+            //if rocket flies from trophy-layout
+            if(pattern.test(className)){
+                p3.x = parseFloat(from.attr("b-left"));
+                p3.y = parseFloat(from.attr("b-top"));
+            }else{
+                var fromPos = from.find(".planet").offset();
+                p3.x = fromPos.left + pW / 2;
+                p3.y = fromPos.top;
+            }
             var arr = [
-                p1, p2
+                [p1.x, p1.y],
+                [p2.x, p2.y],
+                [p3.x, p3.y]
             ];
             self.posList.push(arr)
-//            var p1 = offset.
         });
-        debugger
+        self.posList.reverse();
+    },
 
+    /**
+     * 创建抛物线方程
+     */
+    buildParabola: function () {
+        var self = this;
+        var len = self.posList.length;
+        for(var i = 0; i < len; i++){
+            var points = self.posList[i];
+            var mat = Matrix.buildAugMatrix(points, 3);
+            var alpha = Matrix.solve(mat);
+            debug(alpha)
+        }
+        debugger
     },
 
     move: function(e){

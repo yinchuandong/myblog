@@ -16,25 +16,36 @@ var Matrix = {
             [0, 1],
             [2, 1]
         ];
-        var pLen = pointList.length;
-        var matrix = [];
-        for(var i = 0; i < pLen; i++){
-            var tmp = [];
-            for(var k = 2; k >= 0; k--){
-                tmp.push(Math.pow(pointList[i][0], k));
-            }
-            tmp.push(pointList[i][1]);
-            matrix.push(tmp);
-        }
 
+        var matrix = self.buildAugMatrix(pointList, 3);
         var alpha = self.solve(matrix);
         debugger
     },
 
     /**
+     * 构建增广矩阵
+     * @param pointList 点的个数
+     * @param n 未知数的个数
+     * @return {Array} matrix
+     */
+    buildAugMatrix: function (pointList, n) {
+        var pLen = pointList.length;
+        var matrix = [];
+        for(var i = 0; i < pLen; i++){
+            var tmp = [];
+            for(var k = n; k >= 0; k--){
+                tmp.push(Math.pow(pointList[i][0], k));
+            }
+            tmp.push(pointList[i][1]);
+            matrix.push(tmp);
+        }
+        return matrix;
+    },
+
+    /**
      * 通过矩阵解多元一次线性方程
      * @param m 增广矩阵
-     * @returns {Array}
+     * @returns {Array} 系数的值
      */
     solve: function (m) {
         var self = this;
