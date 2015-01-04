@@ -7,7 +7,8 @@ var Rocket = {
     windowHeight: 0,
     docHeight: 0,
     rocket: null,
-    posList: [], //火箭的驻停点
+    posList: [], //火箭的驻停点, 通过三个点来确定唯一的抛物线
+    alphaList: [], //抛物线方程的[a,b,c]系数
     isRunning: false,
     isActivated: false,
     rTop: 0, //火箭起始位置的top
@@ -34,7 +35,7 @@ var Rocket = {
         //select 3 points to confirm a unique parabola equation
         jLayout.each(function (i, elem) {
             elem = $(elem);
-//            console.log($(elem).offset());
+            console.log($(elem).offset());
             var pW = elem.width();
             var pH = elem.height();
             var offset = elem.offset();
@@ -89,11 +90,29 @@ var Rocket = {
         var len = self.posList.length;
         for(var i = 0; i < len; i++){
             var points = self.posList[i];
+//            points = [
+//                [-1, 0],
+//                [5, 0],
+//                [0, -5]
+//            ];
             var mat = Matrix.buildAugMatrix(points, 3);
             var alpha = Matrix.solve(mat);
+            self.alphaList.push(alpha);
+            var left = self.calculate(alpha, points[2][1]);
+//            var left = self.calculate(alpha, 0);
+            debugger
             debug(alpha)
         }
-        debugger
+    },
+
+    calculate: function (alpha, top) {
+        var a = alpha[0];
+        var b = alpha[1];
+        var c = alpha[2] - top;
+        var delta = b*b - 4*a*c;
+        var x1 = (-b + Math.sqrt(delta)) / (2 * a);
+        var x2 = (-b - Math.sqrt(delta)) / (2 * a);
+        return [x1, x2];
     },
 
     move: function(e){

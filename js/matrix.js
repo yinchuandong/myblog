@@ -6,19 +6,22 @@ var Matrix = {
 
     init: function () {
         var self = this;
-//        var m = [
-//            [1, 1, 1, 0],
-//            [0, 0, 1, 1],
-//            [4, 2, 1, 1]
-//        ];
         var pointList = [
-            [1, 0],
-            [0, 1],
-            [2, 1]
+            [-1, 0],
+            [5, 0],
+            [0, -5]
         ];
 
         var matrix = self.buildAugMatrix(pointList, 3);
         var alpha = self.solve(matrix);
+        var top = 0;
+
+        var a = alpha[0];
+        var b = alpha[1];
+        var c = alpha[2] - top;
+        var delta = b*b - 4*a*c;
+        var x1 = (-b + Math.sqrt(delta)) / (2 * a);
+        var x2 = (-b - Math.sqrt(delta)) / (2 * a);
         debugger
     },
 
@@ -33,7 +36,7 @@ var Matrix = {
         var matrix = [];
         for(var i = 0; i < pLen; i++){
             var tmp = [];
-            for(var k = n; k >= 0; k--){
+            for(var k = n - 1; k >= 0; k--){
                 tmp.push(Math.pow(pointList[i][0], k));
             }
             tmp.push(pointList[i][1]);
@@ -72,6 +75,9 @@ var Matrix = {
                 }
                 for(var k = j; k < col; k++){
                     m[i][k] -= ratio * m[fistNoneZeroRow][k];
+                    if(Math.abs(m[i][k]) < 0.000001){
+                        m[i][k] = 0;
+                    }
                 }
             }
 
@@ -85,13 +91,13 @@ var Matrix = {
         var alpha = [];
         for(i = 0; i < row; i++){
             for(j = 0; j < col; j++){
-                if(m[i][j] != 0){
+                //因为js float不精确
+                if(m[i][j] != 0 && Math.abs(m[i][j]) >= 0.000001){
                     alpha.push(m[i][col - 1] / m[i][j]);
                     break;
                 }
             }
         }
-
         return alpha;
     },
 
