@@ -10,13 +10,15 @@ var Animate = {
 
     init: function () {
         var self = this;
-        var rockList = Rock.rockList;
-        var len = rockList.length;
-        for(var i = 0; i < len; i++){
-            var boom = rockList[i].boom;
-            var pos = {left: boom.bLeft, top: boom.bTop};
+        var layout = $('#master-layout').find('div.sky');
+        layout.each(function(i, elem){
+            elem = $(elem);
+            var bLeft = parseFloat(elem.attr("b-left"));
+            var bTop = parseFloat(elem.attr("b-top"));
+            var pos = {left: bLeft, top: bTop};
             self.posList.push(pos);
-        }
+        });
+        self.posList.reverse();
         self.goUp();
     },
     goUp: function(){

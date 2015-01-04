@@ -5,6 +5,7 @@
 //火箭
 var Rocket = {
     windowHeight: 0,
+    windowWidth: 0,
     docHeight: 0,
     rocket: null,
     posList: [], //火箭的驻停点, 通过三个点来确定唯一的抛物线
@@ -17,6 +18,7 @@ var Rocket = {
     init: function(){
         var self = this;
         self.windowHeight = $(window).height();
+        self.windowWidth = $(window).width();
         self.docHeight = $(document).height();
         self.rocket = $('#rocket');
 
@@ -28,6 +30,9 @@ var Rocket = {
         self.buildParabola();
     },
 
+    /**
+     * 初始化火箭的运动轨迹
+     */
     initPos: function(){
         var self = this;
         var jLayout = $(".work-layout .planet");
@@ -77,6 +82,11 @@ var Rocket = {
                 [p2.x, p2.y],
                 [p3.x, p3.y]
             ];
+            work.attr({
+                'b-left': p1.x,
+                'b-top': p1.y,
+                'b-type': 'work'
+            });
             self.posList.push(arr)
         });
         self.posList.reverse();
@@ -90,29 +100,47 @@ var Rocket = {
         var len = self.posList.length;
         for(var i = 0; i < len; i++){
             var points = self.posList[i];
-//            points = [
-//                [-1, 0],
-//                [5, 0],
-//                [0, -5]
-//            ];
             var mat = Matrix.buildAugMatrix(points, 3);
             var alpha = Matrix.solve(mat);
             self.alphaList.push(alpha);
-            var left = self.calculate(alpha, points[2][1]);
-//            var left = self.calculate(alpha, 0);
-            debugger
-            debug(alpha)
         }
+        var left = self.calculate(0, 18000);
+        var last = self.lastPos;
+//        debugger
     },
 
-    calculate: function (alpha, top) {
+    /**
+     * 根据top计算当前的left,再对结果进行筛选
+     * @param workId
+     * @param top
+     * @returns {int}
+     */
+    calculate: function (workId, top) {
+        var self = this;
+        var alpha = self.alphaList[workId];
         var a = alpha[0];
         var b = alpha[1];
         var c = alpha[2] - top;
         var delta = b*b - 4*a*c;
         var x1 = (-b + Math.sqrt(delta)) / (2 * a);
         var x2 = (-b - Math.sqrt(delta)) / (2 * a);
-        return [x1, x2];
+        var left = 0;
+        var p1 = self.posList[workId][0];
+        var p3 = self.posList[workId][2];
+        var span = 2;
+        if(p1.x > p3.x){//from left-down to right-up
+            if(p3.x - span <= x1 && x1 <= p1.x + span){
+                return x1;
+            }else{
+                return x2;
+            }
+        }else{
+            if(p1.x - span <= x1 && x1 <= p3.x + span){
+                return x1;
+            }else{
+                return x2;
+            }
+        }
     },
 
     move: function(e){
@@ -131,8 +159,11 @@ var Rocket = {
         }
         self.isRunning = true;
         var top = self.windowHeight/2;
-
-        self.rocket.css({top: top});
+        var left = self.calculate(0, window.pageYOffset + top);
+        self.rocket.css({
+            left: left,
+            top: top
+        });
 
 
         self.isRunning = false;

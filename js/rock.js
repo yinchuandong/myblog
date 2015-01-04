@@ -58,7 +58,7 @@ var Rock = {
             elem.attr({
                 "b-left": bLeft,
                 "b-top": bTop,
-                "b-from": "rock" //fly from rock after booming
+                "b-type": "trophy" //fly from rock after booming
             });
         });
         //reverse list to fit the sequence of layout
