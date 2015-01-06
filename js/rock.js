@@ -31,10 +31,12 @@ var Rock = {
                 rock.css({ top: 0, left: -rockWidth});
             }
 
-            var oTop = elem.offset().top; // origin top of rock
+            var oTop = elem.offset().top - elem.height() / 2; // origin top of rock
             //booming left and top
             var bLeft = self.rocket.offset().left;
-            var bTop = elem.offset().top + elem.height() / 2;
+            //碰撞点设置在trophy的top边界上，
+            //因此checkArea函数边界需要向上扩展elem.height()/2
+            var bTop = elem.offset().top
             rock.boom = {
                 oLeft: oLeft,
                 oTop: oTop,
@@ -57,8 +59,7 @@ var Rock = {
             var workLayout = elem.prev(".work-layout");
             elem.attr({
                 "b-left": bLeft,
-                "b-top": bTop,
-                "b-type": "trophy" //fly from rock after booming
+                "b-top": bTop
             });
         });
         //reverse list to fit the sequence of layout
@@ -86,8 +87,9 @@ var Rock = {
         var curIndex = -1;
         for (var i = 0; i < len; i++) {
             var tOff = self.trophyOffset[i];
+            var tro = self.trophyList[i];
             if ((tOff.left <= rOff.left && rOff.left <= tOff.right)
-                && (tOff.top <= rOff.top && rOff.top <= tOff.bottom)) {
+                && (tOff.top - tro.height() / 2 <= rOff.top && rOff.top <= tOff.bottom)) {
                 curIndex = i;
                 break;
             }

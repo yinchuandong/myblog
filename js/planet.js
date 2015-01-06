@@ -7,6 +7,12 @@ var Planet = {
     posList: [], //火箭的驻停点, 通过三个点来确定唯一的抛物线
     alphaList: [], //抛物线方程的[a,b,c]系数
 
+    init: function () {
+        var self = this;
+        self.initPos();
+        self.buildParabola();
+    },
+
     /**
      * 初始化火箭的运动轨迹
      */
@@ -24,7 +30,6 @@ var Planet = {
             var direct = elem.attr("direct");
             var p1 = {x: offset.left + pW / 2, y: offset.top};//顶点
             var p2 = {x: 0, y: offset.top + pH / 2};//中间点
-            var a = parseInt(Math.random()*100000) % 2;
             switch (direct){
                 case 'left' :
                     p2.x = offset.left + pW;
@@ -61,8 +66,7 @@ var Planet = {
             ];
             work.attr({
                 'b-left': p1.x,
-                'b-top': p1.y,
-                'b-type': 'work'
+                'b-top': p1.y
             });
             self.posList.push(arr)
         });
