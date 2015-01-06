@@ -20,7 +20,7 @@ var Rock = {
             var rock = elem.find(".trophy-rock");
             var direct = rock.attr("direct");
 
-            //calculate the initial position and boom position of rock
+            //calcParabola the initial position and boom position of rock
             var oLeft = 0; // original left of rock
             if (direct == "right") {
                 oLeft = elem.offset().left + elem.width();
@@ -48,7 +48,7 @@ var Rock = {
             };
             self.rockList.push(rock);
 
-            //calculate the area of trophy layout
+            //calcParabola the area of trophy layout
             var offset = elem.offset();
             var width = elem.width();
             var height = elem.height();

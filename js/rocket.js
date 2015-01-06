@@ -72,14 +72,13 @@ var Rocket = {
         }
         self.isRunning = true;
         var top = self.windowHeight/2;
-        var left = Planet.calculate(0, window.pageYOffset + top);
+        var left = Planet.calcParabola(0, window.pageYOffset + top);
         self.rocket.css({
             left: left,
             top: top
         });
 
-        var curIndex = self.checkArea(self.rocket.offset().top);
-        console.log(curIndex);
+        self.getRoute();
 
         self.isRunning = false;
         self.lastPos = self.rocket.offset();
@@ -92,7 +91,18 @@ var Rocket = {
         var left = self.rocket.offset().left;
         var curIndex = self.checkArea(top);
         if(curIndex >= 0){
+            var sky = self.skyList[curIndex];
+            var type = sky.attr("b-type");
+            var id = parseInt(sky.attr("id").split("-")[1]) - 1;
+            debug("id:--" + id);
+            if(type == 'work'){
+                //work
+                var left = Planet.calcParabola(id, top);
+            }else{
+                //trophy
+                var left = Planet.calcLinear(id, top);
 
+            }
         }
 
     },

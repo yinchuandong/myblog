@@ -85,18 +85,23 @@ var Planet = {
             var alpha = Matrix.solve(mat);
             self.alphaList.push(alpha);
         }
-        var left = self.calculate(0, 18000);
+        var left = self.calcParabola(0, 18000);
         var last = self.lastPos;
 //        debugger
     },
 
+    calcLinear: function(trophyId, top){
+        var left = 0;
+        return left;
+    },
+
     /**
-     * 根据top计算当前的left,再对结果进行筛选
+     * 抛物线方程，根据top计算当前的left,再对结果进行筛选
      * @param workId
      * @param top
      * @returns {int}
      */
-    calculate: function (workId, top) {
+    calcParabola: function (workId, top) {
         var self = this;
         var alpha = self.alphaList[workId];
         var a = alpha[0];
@@ -123,4 +128,5 @@ var Planet = {
             }
         }
     }
+
 };
