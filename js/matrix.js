@@ -118,5 +118,26 @@ var Matrix = {
             matrix[i][k] = matrix[j][k];
             matrix[j][k] = t;
         }
+    },
+
+
+    /**
+     * 直线方程函数
+     * @param y 给定的y用来求x
+     * @param x1 为碰撞点的x
+     * @param y1 为碰撞点的y
+     * @param x2 火箭的x
+     * @param y2 火箭的y
+     * @returns {*}
+     */
+    linearFunc: function (y, x1, y1, x2, y2) {
+        if (x1 == x2) {//斜率不存在
+            return x1;
+        }
+        var k = (y1 - y2) / (x1 - x2);
+        if (k == 0) {//如果斜率 == 0
+            return x1;
+        }
+        return (y - y1) / k + x1;
     }
-}
+};

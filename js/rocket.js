@@ -72,7 +72,8 @@ var Rocket = {
         }
         self.isRunning = true;
         var top = self.windowHeight/2;
-        var left = Planet.calcParabola(0, window.pageYOffset + top);
+        //var left = Planet.calcParabola(0, window.pageYOffset + top);
+        var left = self.getRoute();
         self.rocket.css({
             left: left,
             top: top
@@ -94,17 +95,17 @@ var Rocket = {
             var sky = self.skyList[curIndex];
             var type = sky.attr("b-type");
             var id = parseInt(sky.attr("id").split("-")[1]) - 1;
-            debug("id:--" + id);
+            var newLeft = 0;
             if(type == 'work'){
                 //work
-                var left = Planet.calcParabola(id, top);
+                newLeft = Planet.calcParabola(id, top);
             }else{
                 //trophy
-                var left = Planet.calcLinear(id, top);
-
+                newLeft = Planet.calcLine(id, top);
             }
+            return newLeft;
         }
-
+        return left;
     },
 
     checkArea: function (top) {

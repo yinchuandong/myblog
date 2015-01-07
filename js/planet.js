@@ -3,22 +3,28 @@
  */
 
 var Planet = {
+    rocket: null,
 
-    posList: [], //火箭的驻停点, 通过三个点来确定唯一的抛物线
+    pointsOfLine: [], //直线方程的点
+    pointsOfParabola: [], //火箭的驻停点, 通过三个点来确定唯一的抛物线
     alphaList: [], //抛物线方程的[a,b,c]系数
 
     init: function () {
         var self = this;
-        self.initPos();
+        self.rocket = $("#rocket");
+        //要先初始化抛物线
+        self.initParabola();
         self.buildParabola();
+        //抛物线初始化完了之后再初始化直线，因为b-left,b-top是在iniParabola函数中
+        self.initLine();
     },
 
     /**
      * 初始化火箭的运动轨迹
      */
-    initPos: function(){
+    initParabola: function(){
         var self = this;
-        var jLayout = $(".work-layout .planet");
+        var jLayout = $("div.work-layout .planet");
 
         //select 3 points to confirm a unique parabola equation
         jLayout.each(function (i, elem) {
@@ -68,9 +74,9 @@ var Planet = {
                 'b-left': p1.x,
                 'b-top': p1.y
             });
-            self.posList.push(arr)
+            self.pointsOfParabola.push(arr)
         });
-        self.posList.reverse();
+        self.pointsOfParabola.reverse();
     },
 
     /**
@@ -78,9 +84,9 @@ var Planet = {
      */
     buildParabola: function () {
         var self = this;
-        var len = self.posList.length;
+        var len = self.pointsOfParabola.length;
         for(var i = 0; i < len; i++){
-            var points = self.posList[i];
+            var points = self.pointsOfParabola[i];
             var mat = Matrix.buildAugMatrix(points, 3);
             var alpha = Matrix.solve(mat);
             self.alphaList.push(alpha);
@@ -90,12 +96,8 @@ var Planet = {
 //        debugger
     },
 
-    calcLinear: function(trophyId, top){
-        var left = 0;
-        return left;
-    },
-
     /**
+     * 当火箭飞过work-layout的时候
      * 抛物线方程，根据top计算当前的left,再对结果进行筛选
      * @param workId
      * @param top
@@ -111,22 +113,65 @@ var Planet = {
         var x1 = (-b + Math.sqrt(delta)) / (2 * a);
         var x2 = (-b - Math.sqrt(delta)) / (2 * a);
         var left = 0;
-        var p1 = self.posList[workId][0];
-        var p3 = self.posList[workId][2];
-        var span = 2;
-        if(p1.x > p3.x){//from left-down to right-up
-            if(p3.x - span <= x1 && x1 <= p1.x + span){
+        var p1 = self.pointsOfParabola[workId][0];
+        var p3 = self.pointsOfParabola[workId][2];
+        var span = 100;
+        var minLeft = $("#work-" + workId).find(".planet").width() / 2;
+
+        if(p1[0] > p3[0]){//from left-down to right-up
+            if(p3[0] - span <= x1 && x1 <= p1[0] + span){
                 return x1;
             }else{
                 return x2;
             }
         }else{
-            if(p1.x - span <= x1 && x1 <= p3.x + span){
+            if(p1[0] - span <= x1 && x1 <= p3[0] + span){
                 return x1;
             }else{
                 return x2;
             }
         }
+    },
+
+    /**
+     * 初始化直线方程
+     */
+    initLine: function(){
+        var self = this;
+        var trophy = $("div.trophy-layout");
+        trophy.each(function (i, elem) {
+            elem = $(elem);
+            var from = elem.next("div.work-layout");
+            var p1 = {
+                x: parseFloat(elem.attr("b-left")),
+                y: parseFloat(elem.attr("b-top"))
+            };
+            var p2 = {};
+            if(from.length > 0){
+                p2.x = parseFloat(from.attr("b-left")),
+                    p2.y = parseFloat(from.attr("b-top"))
+            }else{
+                p2.x = parseFloat(self.rocket.offset().left);
+                p2.y = parseFloat(elem.offset().top + elem.height());
+            }
+            self.pointsOfLine.push([p1, p2]);
+        });
+        self.pointsOfLine.reverse();
+    },
+
+
+    /**
+     * 当火箭飞过trophy-layout的时候，通过直线方程计算left
+     * @param trophyId
+     * @param top
+     * @returns {*}
+     */
+    calcLine: function(trophyId, top){
+        var self = this;
+        var p1 = self.pointsOfLine[trophyId][0];
+        var p2 = self.pointsOfLine[trophyId][1];
+        var left = Matrix.linearFunc(top, p1.x, p1.y, p2.x, p2.y);
+        return left;
     }
 
 };
