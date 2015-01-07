@@ -115,7 +115,7 @@ var Planet = {
         var left = 0;
         var p1 = self.pointsOfParabola[workId][0];
         var p3 = self.pointsOfParabola[workId][2];
-        var span = 100;
+        var span = 0;
         var minLeft = $("#work-" + workId).find(".planet").width() / 2;
 
         if(p1[0] > p3[0]){//from left-down to right-up

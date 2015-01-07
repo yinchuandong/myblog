@@ -38,7 +38,7 @@ $(function(){
     setTimeout(function(){
         Rock.init();
         Rocket.init();
-        //Animate.init();
+        Animate.init();
         $(window).scroll(function(e){
             Rocket.move(e);
 
