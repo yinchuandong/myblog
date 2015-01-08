@@ -72,7 +72,7 @@ var Rocket = {
         }
         self.isRunning = true;
         var top = self.windowHeight/2;
-        //var left = Planet.calcParabola(0, window.pageYOffset + top);
+
         var left = self.getRoute();
         self.rocket.css({
             left: left,

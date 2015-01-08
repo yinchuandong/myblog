@@ -15,23 +15,23 @@ $(function(){
         staticScrollLimit : false
     });
 
-    //控制鼠标滚轮
-    var lastTime = 0;
-    $("body").mousewheel(function (e, delta) {
-        e.preventDefault();
-        var curTime = (new Date()).getTime();
-        if(curTime - lastTime < 200){
-            return;
-        }else{
-            lastTime = curTime;
-        }
-        $.scrollTo.window().queue([]).stop();
-        if (delta < 0) {
-            $('body').stop().scrollTo('+=200', 500);
-        } else {
-            $('body').stop().scrollTo('-=200', 500);
-        }
-    });
+    ////控制鼠标滚轮
+    //var lastTime = 0;
+    //$("body").mousewheel(function (e, delta) {
+    //    e.preventDefault();
+    //    var curTime = (new Date()).getTime();
+    //    if(curTime - lastTime < 200){
+    //        return;
+    //    }else{
+    //        lastTime = curTime;
+    //    }
+    //    //$.scrollTo.window().queue([]).stop();
+    //    //if (delta < 0) {
+    //    //    $('body').stop().scrollTo('+=200', 500);
+    //    //} else {
+    //    //    $('body').stop().scrollTo('-=200', 500);
+    //    //}
+    //});
 
 //    Matrix.init();
 
