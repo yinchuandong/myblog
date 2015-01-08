@@ -38,7 +38,14 @@ var Animate = {
         //控制鼠标滚轮
         $("body").mousewheel(function (e, delta) {
             e.preventDefault();
-            if(self.isRunning){
+
+            //判断火箭是否被激活
+            if(!Rocket.isActivated && !Rocket.isRunning){
+                Rocket.launch();
+                return;
+            }
+
+            if(self.isRunning || !Rocket.isActivated){
                 return;
             }
             //debugger
@@ -60,7 +67,7 @@ var Animate = {
         var self = this;
         self.isRunning = true;
         var bTop = self.posList[index];
-        $('body').stop().scrollTo(bTop - $(window).height() / 2, 3000,{
+        $('body').stop().scrollTo(bTop - $(window).height() / 2, 2000,{
             onAfter: function(){
                 self.isRunning = false;
             }

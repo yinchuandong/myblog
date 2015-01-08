@@ -65,11 +65,6 @@ var Rocket = {
             return;
         }
 
-        //判断是否被激活
-        if(!self.isActivated && !self.isRunning){
-            self.launch();
-            return;
-        }
         self.isRunning = true;
         var top = self.windowHeight/2;
 
