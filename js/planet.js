@@ -38,7 +38,7 @@ var Planet = {
             var p2 = {x: 0, y: offset.top + pH / 2};//中间点
             switch (direct){
                 case 'left' :
-                    p2.x = offset.left + pW;
+                    p2.x = offset.left + pW * -0.5;
                     break;
                 case 'right':
                     p2.x = offset.left;
@@ -91,9 +91,9 @@ var Planet = {
             var alpha = Matrix.solve(mat);
             self.alphaList.push(alpha);
         }
-        var left = self.calcParabola(0, 18000);
+        var left = self.calcParabola(0, 17520);
         var last = self.lastPos;
-//        debugger
+        //debugger
     },
 
     /**
@@ -112,12 +112,19 @@ var Planet = {
         var delta = b*b - 4*a*c;
         var x1 = (-b + Math.sqrt(delta)) / (2 * a);
         var x2 = (-b - Math.sqrt(delta)) / (2 * a);
-        var left = 0;
         var p1 = self.pointsOfParabola[workId][0];
         var p3 = self.pointsOfParabola[workId][2];
-        var span = 0;
-        var minLeft = $("#work-" + workId).find(".planet").width() / 2;
+        var span = 2;
+        var minLeft = $("#work-" + (workId + 1)).find(".planet").width() / 2 - self.rocket.width()/2;
 
+        var cx = -(b / (2*a));
+        //debugger
+        if(x1 < minLeft){
+            return x2;
+        }
+        if(x2 < minLeft){
+            return x1;
+        }
         if(p1[0] > p3[0]){//from left-down to right-up
             if(p3[0] - span <= x1 && x1 <= p1[0] + span){
                 return x1;
@@ -125,7 +132,7 @@ var Planet = {
                 return x2;
             }
         }else{
-            if(p1[0] - span <= x1 && x1 <= p3[0] + span){
+            if((p1[0] - span <= x1 && x1 <= p3[0] + span)){
                 return x1;
             }else{
                 return x2;

@@ -120,7 +120,6 @@ var Rocket = {
                 break;
             }
         }
-
         if(curIndex == -1){
             var bottomSky = self.skyBounds[0];
             var topSky = self.skyBounds[len - 1];
