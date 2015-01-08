@@ -13,7 +13,8 @@ Array.prototype.insert = function (index, item) {
 
 var Animate = {
     isRunning: false,
-    posList: [],
+    posList: [], //保存layout的top
+    layoutList: [], //保存layout对象
     timer: null,
     curIndex: 0,
 
@@ -26,10 +27,18 @@ var Animate = {
             elem = $(elem);
             var bTop = parseFloat(elem.attr("b-top"));
             self.posList.push(bTop);
+            self.layoutList.push(elem);
         });
         self.posList.reverse();
+        self.layoutList.reverse();
+
+        //将about-me 和 about-future 添加到动画列表中
+        var jFuture = $("#about-future");
         self.posList.insert(0, window.pageYOffset + Rocket.rTop);
-        self.posList.push($("#about-future").find("div.about-future-box").offset().top);
+        self.posList.push(jFuture.find("div.about-future-box").offset().top);
+
+        self.layoutList.insert(0, $("#about-me"));
+        self.layoutList.push(jFuture);
         self.bindEvent();
     },
 
@@ -51,11 +60,13 @@ var Animate = {
             //debugger
             if (delta < 0) {
                 if(self.curIndex > 0){
+                    self.hideBox(self.curIndex);
                     self.curIndex --;
                     self.doMove(self.curIndex);
                 }
             } else {
                 if(self.curIndex < self.posList.length - 1){
+                    self.hideBox(self.curIndex);
                     self.curIndex ++;
                     self.doMove(self.curIndex);
                 }
@@ -69,9 +80,28 @@ var Animate = {
         var bTop = self.posList[index];
         $('body').stop().scrollTo(bTop - $(window).height() / 2, 2000,{
             onAfter: function(){
+                self.showBox(index);
                 self.isRunning = false;
             }
         });
+    },
+
+    hideBox: function (index) {
+        var self = this;
+        var layout = self.layoutList[index];
+        var box = layout.find("div.box");
+        if(box.length > 0){
+            box.fadeOut();
+        }
+    },
+
+    showBox: function(index){
+        var self = this;
+        var layout = self.layoutList[index];
+        var box = layout.find("div.box");
+        if(box.length > 0){
+            box.fadeIn();
+        }
     },
 
     autoPlay: function(){
