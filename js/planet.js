@@ -36,18 +36,21 @@ var Planet = {
             var direct = elem.attr("direct");
             var p1 = {x: offset.left + pW / 2, y: offset.top};//顶点
             var p2 = {x: 0, y: offset.top + pH / 2};//中间点
+
+            //加上pW * rate 是为了解决抛物线顶点的问题
             switch (direct){
                 case 'left' :
                     p2.x = offset.left + pW * -0.5;
                     break;
                 case 'right':
-                    p2.x = offset.left;
+                    p2.x = offset.left + pW * 0.2;
                     break;
                 case 'mid-left'://从左边运动到中间
+                    p1.x = offset.left + pW * 0.3;
                     p2.x = offset.left;
                     break;
                 case 'mid-right'://从右边运动到中间
-                    p2.x = offset.left + pW;
+                    p2.x = offset.left + pW * -0.5;
                     break;
             }
 

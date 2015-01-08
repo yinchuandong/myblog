@@ -11,6 +11,7 @@
             var self = this;
             self.selectAllImg();
             self.loadImg();
+            //debugger
         },
 
         loadImg: function () {
