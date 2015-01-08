@@ -15,7 +15,6 @@
     position: relative;
     left: 0;
     bottom: 0;
-    z-index: 10000;
     margin-bottom: 0;
 }
 
@@ -71,7 +70,6 @@
     position: relative;
     top: 5%;
     display: none;
-    z-index: 20000;
 }
 
 /*---------奖杯----------*/
@@ -94,12 +92,6 @@
     position: relative;
     top: -10%;
     display: none;
-    z-index: 2000000;
-}
-#trophy-1 .trophy-rock{
-    top: 0;
-    right: -100px;
-    display: block;
 }
 .trophy-small{
     right: 0;
@@ -131,7 +123,6 @@
 
 #rocket{
     position: fixed;
-    z-index: 10000;
     left: 48%;
 }
 
@@ -148,7 +139,6 @@
     position: absolute;
     left: 0;
     top: 0;
-    z-index: -1;
 }
 
 #bg-cloud img{
@@ -164,7 +154,6 @@
     position: absolute;
     top: 0;
     left: 0;
-    z-index: 100;
 }
 
 #bg-star img{
@@ -174,4 +163,132 @@
     border: none;
     display:block
 }
+.ball-all {
+    display: inline-block;
+    _zoom: 1;
+    _display: inline;
+    *display: inline;
+    width: 120px;
+    height: 120px;
+    position: fixed;
+    top: 50%;left: 50%;
+    margin: -60px 0 0 -60px;
+}
 
+
+
+.ball-box {
+    width: 120px;
+    height: 120px;
+    -ms-border-radius: 120px;
+    -o-border-radius: 120px;
+    -webkit-border-radius: 120px;
+    border-radius: 120px;
+    position: relative;
+    background: #4284a5;
+}
+
+.ball-box .lit-ball {
+    display: block;
+    width: 108px;
+    height: 108px;
+    -ms-border-radius: 100px;
+    -o-border-radius: 100px;
+    -webkit-border-radius: 100px;
+    border-radius: 100px;
+    position: absolute;
+    margin: 6px 0 0 6px;
+    background-color: #4284a5;
+    font-size: 2em;
+    color:#fff;
+    line-height: 109px;
+    font-weight: bold;
+    letter-spacing: .1em;
+    text-align: center;
+}
+
+.ball-box .half1,.ball-box .half2 {
+    width: 120px;
+    height: 120px;
+    position: absolute;
+    -ms-border-radius: 150px;
+    -o-border-radius: 150px;
+    -webkit-border-radius: 150px;
+    border-radius: 150px
+}
+
+.ball-box .half1 {
+    clip: rect(0, 60px, 120px, 0)
+}
+
+.ball-box .half2 {
+    clip: rect(0, 240px, 120px, 60px)
+}
+.ball-box .ball1 {
+    width: 120px;
+    height: 120px;
+    background-color: #4284a5;
+    -ms-border-radius: 120px;
+    -o-border-radius: 120px;
+    -webkit-border-radius: 120px;
+    border-radius: 120px;
+    position: absolute;
+    clip: rect(0, 62px, 124px, 0)
+}
+
+.ball-box .ball2 {
+    width: 120px;
+    height: 120px;
+    background-color: #4284a5;
+    -ms-border-radius: 120px;
+    -o-border-radius: 120px;
+    -webkit-border-radius: 120px;
+    border-radius: 120px;
+    position: absolute;
+    clip: rect(0, 124px, 124px, 62px)
+}
+
+.ball-box1 .half1,.ball-box1 .half2 {
+    background-color: #6FD7FF
+}
+
+.ball-box1 .ball1 {
+    -webkit-transform: rotate(80deg);
+    -ms-transform: rotate(80deg);
+    -moz-transform: rotate(80deg);
+    -o-transform: rotate(80deg);
+    transform: rotate(80deg)
+}
+
+.ball-box1 .ball2 {
+    -webkit-transform: rotate(180deg);
+    -ms-transform: rotate(180deg);
+    -moz-transform: rotate(180deg);
+    -o-transform: rotate(180deg);
+    transform: rotate(180deg)
+}
+/*z-index*/
+#master-layout{
+    z-index: 4;
+}
+.work-box{
+    z-index: 102;
+}
+.trophy-box{
+    z-index: 102;
+}
+#rocket{
+    z-index: 4;
+}
+.earth{
+    z-index: 1;
+}
+#bg-cloud{
+    z-index: 0;
+}
+#bg-star{
+    z-index: 2;
+}
+.ball-all {
+    z-index: 4;
+}

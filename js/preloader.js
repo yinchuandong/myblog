@@ -95,6 +95,6 @@
         }
     };
 
-    PreLoader.init();
+    $(document.ready(function(){PreLoader.init()});
 
 })();
