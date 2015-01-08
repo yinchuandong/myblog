@@ -128,9 +128,13 @@
 
 .earth{
     width: 70%;
-    height: 70%;
+    /*height: 70%;*/
     display: block;
-    margin: 0 auto;
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    margin-left: -35%;
+    /*margin: 0 auto;*/
 }
 #bg-cloud{
     width: 100%;
@@ -271,6 +275,7 @@
 #master-layout{
     z-index: 4;
 }
+
 .work-box{
     z-index: 102;
 }
@@ -291,4 +296,13 @@
 }
 .ball-all {
     z-index: 4;
+}
+.hide{
+    display: none;
+}
+.part-1{
+    height: 100%;
+    width: 100%;
+    position: fixed;
+    overflow: hidden;
 }
