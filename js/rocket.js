@@ -79,14 +79,14 @@ var Rocket = {
         }
 
         self.isRunning = true;
-        var top = self.windowHeight/2;
-        var left = self.getRoute();
-        self.rocket.css({
-            left: left,
-            top: top
-        });
+        //var top = self.windowHeight/2;
+        //var left = self.getRoute();
+        //self.rocket.css({
+        //    left: left,
+        //    top: top
+        //});
 
-        self.calcDegree();
+        //self.calcDegree();
 
         self.isRunning = false;
         self.lastPos = self.rocket.offset();
@@ -96,11 +96,11 @@ var Rocket = {
     /**
      * 根据不同的条件计算当前火箭的角度，并进行旋转
      */
-    calcDegree: function(){
+    calcDegree: function(p1, p2){
         var self = this;
 
-        var p1 = self.rocket.offset();
-        var p2 = self.lastPos;
+        //var p1 = self.rocket.offset();
+        //var p2 = self.lastPos;
         var angle = 0;
 
         //当垂直运动的时候
@@ -109,13 +109,7 @@ var Rocket = {
                 angle = 180;
             }
             //debugger
-            self.rocket.find("img").css({
-                "transform": "rotate(" + angle + "deg)",
-                "-ms-transform": "rotate(" + angle + "deg)",
-                "-moz-transform": "rotate(" + angle + "deg)",
-                "-webkit-transform": "rotate(" + angle + "deg)",
-                "-o-transform": "rotate(" + angle + "deg)"
-            });
+            self.rotate(angle);
             return;
         }
 

@@ -24,8 +24,11 @@ var Animate = {
         var jLayout = $('#master-layout').find('div.sky');
         jLayout.each(function(i, elem){
             elem = $(elem);
-            var bTop = parseFloat(elem.attr("b-top"));
-            self.posList.push(bTop);
+            var bTop = parseInt(elem.attr("b-top"));
+            var bLeft = parseInt(elem.attr("b-left"));
+            self.posList.push({
+                top:bTop, left: bLeft
+            });
             self.layoutList.push(elem);
         });
         self.posList.reverse();
@@ -33,8 +36,14 @@ var Animate = {
 
         //将about-me 和 about-future 添加到动画列表中
         var jFuture = $("#about-future");
-        self.posList.insert(0, window.pageYOffset + Rocket.rTop);
-        self.posList.push(jFuture.find("div.about-future-box").offset().top);
+        self.posList.insert(0, {
+            left: Rocket.rocket.offset().left,
+            top: window.pageYOffset + Rocket.rTop
+        });
+        self.posList.push({
+            left: Rocket.rocket.offset().left,
+            top: jFuture.find("div.about-future-box").offset().top
+        });
 
         self.layoutList.insert(0, $("#about-me"));
         self.layoutList.push(jFuture);
@@ -61,16 +70,18 @@ var Animate = {
             }
             //debugger
             if (delta < 0) {
+                //向下运动
                 if(self.curIndex > 0){
                     self.hideBox(self.curIndex);
                     self.curIndex --;
-                    self.doMove(self.curIndex);
+                    self.doMove(self.curIndex, -1);
                 }
             } else {
+                //向上运动
                 if(self.curIndex < self.posList.length - 1){
                     self.hideBox(self.curIndex);
                     self.curIndex ++;
-                    self.doMove(self.curIndex);
+                    self.doMove(self.curIndex, 1);
                 }
             }
         });
@@ -86,19 +97,28 @@ var Animate = {
     /**
      * body对滚动条的滚动
      * @param index
+     * @param {int} dir 向上+1, 向下-1
      */
-    doMove: function(index){
+    doMove: function(index, dir){
         var self = this;
         self.isRunning = true;
-        var bTop = self.posList[index];
-        Rocket.rocket.find("img").removeClass("rocket-rotate");
+        var newP = self.posList[index];
+        var bTop = newP.top;
         $('body').stop().scrollTo(bTop - $(window).height() / 2, 2000,{
             onAfter: function(){
                 self.showBox(index);
-                Rocket.rocket.find("img").addClass("rocket-rotate");
                 self.isRunning = false;
             }
         });
+
+        var oldP = self.posList[index - dir];
+        Rocket.rocket.animate({
+            left: newP.left
+        },{
+            easing: 'easeInOutQuad',
+            duration: 2000
+        });
+
     },
 
     /**
@@ -133,7 +153,7 @@ var Animate = {
     autoPlay: function(){
         var self = this;
         self.timer = setTimeout(function(){
-            var bTop = self.posList[self.curIndex];
+            var bTop = self.posList[self.curIndex].top;
             $('body').stop().scrollTo(bTop - $(window).height() / 2, 2000,{
                 onAfter: function(){
                     self.curIndex += 1;
