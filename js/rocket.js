@@ -29,6 +29,24 @@ var Rocket = {
     },
 
     /**
+     * 由Animate.js调用
+     * @param target
+     */
+    animate: function (target) {
+        var self = this;
+        self.rocket.animate(target,{
+            easing: 'easeInOutQuad',
+            duration: 2000,
+            step: function(){
+
+            },
+            complete: function(){
+                
+            }
+        });
+    },
+
+    /**
      * 火箭移动的主函数
      * @param e
      */

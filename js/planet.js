@@ -29,7 +29,7 @@ var Planet = {
             var direct = elem.attr("direct");
             var p1 = {
                 x: offset.left + pW / 2 - self.rocket.width() / 2,
-                y: offset.top
+                y: offset.top + 20
             };//顶点
             var work = elem.parent(".work-layout");
             work.attr({

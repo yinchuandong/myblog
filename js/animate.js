@@ -112,11 +112,8 @@ var Animate = {
         });
 
         var oldP = self.posList[index - dir];
-        Rocket.rocket.animate({
+        Rocket.animate({
             left: newP.left
-        },{
-            easing: 'easeInOutQuad',
-            duration: 2000
         });
 
     },
