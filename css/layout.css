@@ -126,6 +126,13 @@
     position: fixed;
     left: 48%;
 }
+.rocket-rotate{
+    -webkit-transition: all 0.5s;
+    -moz-transition: all 0.5s;
+    -ms-transition: all 0.5s;
+    -o-transition: all 0.5s;
+    transition: all 0.5s;;
+}
 
 .earth{
     width: 70%;

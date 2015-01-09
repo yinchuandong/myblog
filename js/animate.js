@@ -19,7 +19,6 @@ var Animate = {
     curIndex: 0,
 
     init: function () {
-        window.scrollTo(0,document.body.scrollHeight);
 
         var self = this;
         var jLayout = $('#master-layout').find('div.sky');
@@ -92,9 +91,11 @@ var Animate = {
         var self = this;
         self.isRunning = true;
         var bTop = self.posList[index];
+        Rocket.rocket.find("img").removeClass("rocket-rotate");
         $('body').stop().scrollTo(bTop - $(window).height() / 2, 2000,{
             onAfter: function(){
                 self.showBox(index);
+                Rocket.rocket.find("img").addClass("rocket-rotate");
                 self.isRunning = false;
             }
         });
