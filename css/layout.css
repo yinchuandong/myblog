@@ -25,7 +25,7 @@
     top: 0;
 }
 
-#about-future .about-future-box{
+.about-future-box{
     width: 400px;
     height: 310px;
     background: no-repeat url("../img/about-future-box.png");
@@ -116,7 +116,7 @@
     height: 310px;
     background: no-repeat url("../img/about-me-box.png");
     background-size: 100%;
-    margin: 0 auto 200px auto;
+    margin: 0 auto 400px auto;
     position: relative;
 }
 
@@ -136,7 +136,7 @@
     margin-left: -35%;
     /*margin: 0 auto;*/
 }
-#bg-cloud{
+.bg-cloud{
     width: 100%;
     margin: 0;
     padding: 0;
@@ -145,7 +145,7 @@
     top: 0;
 }
 
-#bg-cloud img{
+.bg-cloud img{
     width: 100%;
     padding: 0;
     margin: 0;
@@ -153,20 +153,22 @@
     display:block
 }
 
-#bg-star{
+.bg-star{
     width: 100%;
     position: absolute;
     top: 0;
     left: 0;
 }
 
-#bg-star img{
+.bg-star img{
     width: 100%;
     padding: 0;
     margin: 0;
     border: none;
     display:block
 }
+
+/*-------ball--------*/
 .ball-all {
     display: inline-block;
     _zoom: 1;
@@ -257,19 +259,19 @@
 }
 
 .ball-box1 .ball1 {
-    -webkit-transform: rotate(80deg);
-    -ms-transform: rotate(80deg);
-    -moz-transform: rotate(80deg);
-    -o-transform: rotate(80deg);
-    transform: rotate(80deg)
+    -webkit-transform: rotate(0deg);
+    -ms-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+    transform: rotate(0deg)
 }
 
 .ball-box1 .ball2 {
-    -webkit-transform: rotate(180deg);
-    -ms-transform: rotate(180deg);
-    -moz-transform: rotate(180deg);
-    -o-transform: rotate(180deg);
-    transform: rotate(180deg)
+    -webkit-transform: rotate(0deg);
+    -ms-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+    transform: rotate(0deg)
 }
 /*z-index*/
 #master-layout{
@@ -282,16 +284,19 @@
 .trophy-box{
     z-index: 102;
 }
+.about-me-box, .about-future-box{
+    z-index: 102;
+}
 #rocket{
     z-index: 4;
 }
 .earth{
     z-index: 1;
 }
-#bg-cloud{
+.bg-cloud{
     z-index: 0;
 }
-#bg-star{
+.bg-star{
     z-index: 2;
 }
 .ball-all {

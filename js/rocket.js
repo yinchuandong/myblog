@@ -23,12 +23,10 @@ var Rocket = {
         self.rocket = $('#rocket');
 
         //initialize the position of rocket
-        self.rTop = self.windowHeight - $("#j-earth").height() - self.rocket.height() / 4;
+        self.rTop = self.windowHeight - self.rocket.height();
         self.rocket.css({top: self.rTop});
         self.lastPos = self.rocket.offset();
-
         self.initSkyBounds();
-        Planet.init();
     },
 
     initSkyBounds: function(){
@@ -60,6 +58,12 @@ var Rocket = {
         var self = this;
         //控制岩石
         Rock.scroll(self.isUp(), self.isRight());
+
+        //判断火箭是否被激活
+        if(!Rocket.isActivated && !Rocket.isRunning){
+            Rocket.launch();
+            return;
+        }
 
         if(self.isRunning){
             return;
@@ -134,6 +138,7 @@ var Rocket = {
     launch: function () {
         var self = this;
         console.log(self.rTop);
+        //debugger
         self.isRunning = true;
         var top = self.windowHeight/2;
         self.rocket.stop().animate({top: top}, {

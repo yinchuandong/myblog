@@ -11,6 +11,7 @@
     <script type="text/javascript" src="js/jquery.scrolling-parallax.js"></script>
     <script type="text/javascript" src="js/jquery.mousewheel.js"></script>
     <script type="text/javascript" src="js/jquery.easing.1.3.js"></script>
+    <script type="text/javascript" src="js/jquery.resumescroll.js"></script>
     <script type="text/javascript" src="js/preloader.js"></script>
     <title>John Yin</title>
 </head>
@@ -162,21 +163,10 @@
                 <img src="img/space/space-1.png" alt=""/>
             </div>
         </div>
-        <div class="ball-all">
-            <div class="ball-box ball-box1">
-                <div class="half half1">
-                    <div class="ball ball1"></div>
-                </div>
-                <div class="half half2">
-                    <div class="ball ball2"></div>
-                </div>  
-                <div class="lit-ball" percent="90">0%</div>
-            </div>         
-        </div>
 
         <img id="j-earth" class="earth" src="img/earth.png" />
         <!--大背景-->
-        <div id="bg-cloud">
+        <div id="bg-cloud" class="bg-cloud">
             <img class="bg-cloud-5"  src="img/bg/bg-5F.jpg" />
             <img class="bg-cloud-4"  src="img/bg/bg-4F.jpg" />
             <img class="bg-cloud-3"  src="img/bg/bg-3F.jpg" />
@@ -195,7 +185,7 @@
         </div>
 
         <!--星星-->
-        <div id="bg-star">
+        <div id="bg-star" class="bg-star">
             <img class="bg-star-5"  src="img/bg/star-bg-5.png" />
             <img class="bg-star-4"  src="img/bg/star-bg-4.png" />
             <img class="bg-star-3"  src="img/bg/star-bg-3.png" />
@@ -221,8 +211,8 @@
 
 
 
-    <div class="part-1">
-        <div class="ball-all">
+    <div id="part-1" class="part-1">
+        <div id="ball-all" class="ball-all" percent="0">
             <div class="ball-box ball-box1">
                 <div class="half half1">
                     <div class="ball ball1"></div>
@@ -230,17 +220,17 @@
                 <div class="half half2">
                     <div class="ball ball2"></div>
                 </div>  
-                <div class="lit-ball" percent="90">0%</div>
+                <div class="lit-ball">0%</div>
             </div>         
         </div>
-        <img id="j-earth" class="earth" src="img/earth.png" />
+        <img class="earth" src="img/earth.png" />
         <!--大背景-->
-        <div id="bg-cloud">
+        <div class="bg-cloud">
             <img class="bg-cloud-5"  src="img/bg/bg-1F.jpg" />
         </div>
 
         <!--星星-->
-        <div id="bg-star">
+        <div class="bg-star">
             <img class="bg-star-1"  src="img/bg/star-bg-1.png" />
         </div>  
     </div>
