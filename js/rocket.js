@@ -12,8 +12,6 @@ var Rocket = {
     isActivated: false,
     rTop: 0, //火箭起始位置的top
     lastPos: {}, //上一次的位置
-    skyBounds: [],//不同天空区域的bounds
-    skyList: [],//天空的对象,
     curSkyId: 0,//目前的天空对象id
 
     init: function(){
@@ -27,37 +25,8 @@ var Rocket = {
         self.rTop = self.windowHeight - self.rocket.height();
         self.rocket.css({top: self.rTop});
         self.lastPos = self.rocket.offset();
-        self.initSkyBounds();
         self.rotate(0);
     },
-
-    /**
-     * 初始化天体的边界
-     */
-    initSkyBounds: function(){
-        var self = this;
-        var sky = $("#master-layout").find("div.sky");
-        sky.each(function(i, elem){
-            elem = $(elem);
-            var width = elem.width();
-            var height = elem.height();
-            var left = elem.offset().left;
-            var top = elem.offset().top;
-            var right = left + width;
-            var bottom = top + height;
-            var bound = {
-                left: left,
-                top: top,
-                right: right,
-                bottom: bottom
-            };
-            self.skyBounds.push(bound);
-            self.skyList.push(elem);
-        });
-        self.skyBounds.reverse();
-        self.skyList.reverse();
-    },
-
 
     /**
      * 火箭移动的主函数
@@ -79,12 +48,6 @@ var Rocket = {
         }
 
         self.isRunning = true;
-        //var top = self.windowHeight/2;
-        //var left = self.getRoute();
-        //self.rocket.css({
-        //    left: left,
-        //    top: top
-        //});
 
         //self.calcDegree();
 
@@ -166,65 +129,6 @@ var Rocket = {
         });
     },
 
-    /**
-     * 通过当前的位置和当前运动的天体计算出rocket当前的left
-     * @returns {*}
-     */
-    getRoute: function(){
-        var self = this;
-        var top = self.rocket.offset().top;
-        var left = self.rocket.offset().left;
-        var curIndex = self.checkArea(top);
-        self.curSkyId = curIndex;
-        if(curIndex >= 0){
-            var sky = self.skyList[curIndex];
-            var type = sky.attr("b-type");
-            var id = parseInt(sky.attr("id").split("-")[1]) - 1;
-            var newLeft = 0;
-            if(type == 'work'){
-                //work
-                newLeft = Planet.calcParabola(id, top);
-            }else{
-                //trophy
-                newLeft = Planet.calcLine(id, top);
-            }
-            return newLeft;
-        }
-        return left;
-    },
-
-    /**
-     * 判定当前rocket属于哪一个天体
-     * 如果超过了class=sky的区域，将会返回-1或者-2
-     * @param top
-     * @returns {number}
-     */
-    checkArea: function (top) {
-        var self = this;
-        var len = self.skyBounds.length;
-        var curIndex = -1;
-        for(var i = 0; i < len; i++){
-            var sb = self.skyBounds[i];
-//            var span = self.isUp() ? 1 : 0; //向上和向下判定不一样
-            if(sb.top <= top && top < sb.bottom){
-                curIndex = i;
-                break;
-            }
-        }
-        if(curIndex == -1){
-            var bottomSky = self.skyBounds[0];
-            var topSky = self.skyBounds[len - 1];
-            //大于底部的sky的bottom时，返回-1
-            if(top > bottomSky.bottom){
-                curIndex = -1;
-            }
-            //小于顶部的sky的top时，返回-2
-            if(top < topSky.top){
-                curIndex = -2;
-            }
-        }
-        return curIndex;
-    },
 
     /**
      * 发射火箭
