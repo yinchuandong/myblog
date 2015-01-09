@@ -78,6 +78,8 @@ var Animate = {
 
         //绑定滚动条事件
         $(window).scroll(function(e){
+            e.preventDefault();
+            e.stopPropagation();
             Rocket.move(e);
         });
     },

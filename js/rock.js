@@ -143,6 +143,11 @@ var Rock = {
         rock.css(attr);
     },
 
+    /**
+     * 留给Rocket调用的接口
+     * @param isUp
+     * @param isRight
+     */
     scroll: function (isUp, isRight) {
         var self = this;
         self.checkArea();

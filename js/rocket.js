@@ -28,7 +28,7 @@ var Rocket = {
         self.rocket.css({top: self.rTop});
         self.lastPos = self.rocket.offset();
         self.initSkyBounds();
-        self.calcDegree();
+        self.rotate(0);
     },
 
     /**
@@ -81,10 +81,6 @@ var Rocket = {
         self.isRunning = true;
         var top = self.windowHeight/2;
         var left = self.getRoute();
-        if(!self.isUp()){
-            //top = top - self.rocket.height() / 2;
-            //left = left - self.rocket.width();
-        }
         self.rocket.css({
             left: left,
             top: top

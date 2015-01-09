@@ -69,9 +69,10 @@
             self.ballBox.resumescroll({
                 state: "start",
                 onComplete: function(){
-                    $("#wrapper").removeClass("hide");
                     $("#part-1").addClass("hide");
                     self.ballBox.addClass("hide");
+                    $("#wrapper").removeClass("hide");
+
                     Main.init();
                 }
             });
