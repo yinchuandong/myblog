@@ -43,12 +43,7 @@
         },
         //图片准备好加载
         onPrepared: function(sum){
-            //var self = this;
-            //var percent = parseInt(80);
-            //self.ballBox.attr("percent", percent);
-            //self.ballBox.resumescroll({
-            //    state: "start"
-            //});
+
         },
         //加载中
         onLoading: function (i, sum) {
@@ -77,28 +72,7 @@
                     $("#wrapper").removeClass("hide");
                     $("#part-1").addClass("hide");
                     self.ballBox.addClass("hide");
-
-
-                    //初始化
-                    window.scrollTo(0,document.body.scrollHeight);
-                    $("#bg-cloud").scrollingParallax({
-                        staticSpeed: .45,
-                        staticScrollLimit : false
-                    });
-                    $('#bg-star').scrollingParallax({
-                        staticSpeed : .8,
-                        staticScrollLimit : false
-                    });
-
-
-                    Rock.init();
-                    Planet.init();
-                    Rocket.init();
-                    Animate.init();
-                    $(window).scroll(function(e){
-                        Rocket.move(e);
-
-                    });
+                    Main.init();
                 }
             });
 
