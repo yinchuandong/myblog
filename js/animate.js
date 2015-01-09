@@ -72,6 +72,10 @@ var Animate = {
                 }
             }
         });
+
+        $(window).scroll(function(e){
+            Rocket.move(e);
+        });
     },
 
     doMove: function(index){

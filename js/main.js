@@ -21,10 +21,6 @@ var Main = {
         Planet.init();
         Rocket.init();
         Animate.init();
-        $(window).scroll(function(e){
-            Rocket.move(e);
-
-        });
     }
 };
 

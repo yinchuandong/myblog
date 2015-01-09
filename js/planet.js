@@ -46,7 +46,7 @@ var Planet = {
                     p2.x = offset.left + pW * 0.2;
                     break;
                 case 'mid-left'://从左边运动到中间
-                    p1.x = offset.left + pW * 0.3;
+                    p1.x = offset.left + pW * 0.45;
                     p2.x = offset.left;
                     break;
                 case 'mid-right'://从右边运动到中间

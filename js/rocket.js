@@ -13,7 +13,8 @@ var Rocket = {
     rTop: 0, //火箭起始位置的top
     lastPos: {}, //上一次的位置
     skyBounds: [],//不同天空区域的bounds
-    skyList: [],//天空的对象
+    skyList: [],//天空的对象,
+    curSkyId: 0,//目前的天空对象id
 
     init: function(){
         var self = this;
@@ -27,6 +28,7 @@ var Rocket = {
         self.rocket.css({top: self.rTop});
         self.lastPos = self.rocket.offset();
         self.initSkyBounds();
+        self.calcDegree();
     },
 
     initSkyBounds: function(){
@@ -78,11 +80,87 @@ var Rocket = {
             top: top
         });
 
-        self.getRoute();
+        self.calcDegree();
 
         self.isRunning = false;
         self.lastPos = self.rocket.offset();
 
+    },
+
+    calcDegree: function(){
+        var self = this;
+
+        var p1 = self.rocket.offset();
+        var p2 = self.lastPos;
+        var angle = 0;
+
+        //当垂直运动的时候
+        if(p1.left == p2.left){
+            if(!self.isUp()){
+                angle = 180;
+            }
+            //debugger
+            self.rocket.find("img").css({
+                "transform": "rotate(" + angle + "deg)",
+                "-ms-transform": "rotate(" + angle + "deg)",
+                "-moz-transform": "rotate(" + angle + "deg)",
+                "-webkit-transform": "rotate(" + angle + "deg)",
+                "-o-transform": "rotate(" + angle + "deg)"
+            });
+            return;
+        }
+
+        //当两个天体的b-left的差小于150的时候
+        if(0 < self.curSkyId && self.curSkyId < self.skyList.length - 3){
+            var sky = null;
+            var bLeft1 = 0;
+            var bLeft2 = 0;
+            if(self.isUp()){
+                sky = self.skyList[self.curSkyId - 1];
+                bLeft1 = parseInt(sky.attr("b-left"));
+                var upSky = self.skyList[self.curSkyId];
+                bLeft2 = parseInt(upSky.attr("b-left"));
+                if(Math.abs(bLeft1 - bLeft2) < 150){
+                    angle = 0;
+                    self.rotate(angle);
+                    return;
+                }
+            }else{
+                sky = self.skyList[self.curSkyId];
+                bLeft1 = parseInt(sky.attr("b-left"));
+                var downSky = self.skyList[self.curSkyId - 1];
+                bLeft2 = parseInt(downSky.attr("b-left"));
+                if(Math.abs(bLeft1 - bLeft2) < 150){
+                    angle = 180;
+                    self.rotate(angle);
+                    return;
+                }
+            }
+        }
+
+        var tan = (p2.top - p1.top)/(p1.left - p2.left);
+        angle = Math.atan(tan) / Math.PI * 180;
+        angle = angle > 0 ? angle - 50 : angle + 50;
+        if(!self.isUp()){
+            angle += 180;
+        }
+        self.rotate(angle);
+
+    },
+
+    /**
+     * 旋转函数
+     * @param angle
+     */
+    rotate: function(angle){
+        var self = this;
+        self.rocket.find("img").css({
+            "transform": "rotate(" + angle + "deg)",
+            "-ms-transform": "rotate(" + angle + "deg)",
+            "-moz-transform": "rotate(" + angle + "deg)",
+            "-webkit-transform": "rotate(" + angle + "deg)",
+            "-o-transform": "rotate(" + angle + "deg)"
+        });
     },
 
     getRoute: function(){
@@ -90,6 +168,7 @@ var Rocket = {
         var top = self.rocket.offset().top;
         var left = self.rocket.offset().left;
         var curIndex = self.checkArea(top);
+        self.curSkyId = curIndex;
         if(curIndex >= 0){
             var sky = self.skyList[curIndex];
             var type = sky.attr("b-type");
@@ -131,13 +210,13 @@ var Rocket = {
                 curIndex = -2;
             }
         }
-
         return curIndex;
     },
     
     launch: function () {
         var self = this;
         console.log(self.rTop);
+        self.rotate(0);
         //debugger
         self.isRunning = true;
         var top = self.windowHeight/2;
