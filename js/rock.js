@@ -56,7 +56,6 @@ var Rock = {
             offset.bottom = offset.top + height;
             self.trophyOffset.push(offset);
             self.trophyList.push(elem);
-            var workLayout = elem.prev(".work-layout");
             elem.attr({
                 "b-left": bLeft,
                 "b-top": bTop
@@ -67,12 +66,6 @@ var Rock = {
         self.trophyOffset.reverse();
         self.trophyList.reverse();
 
-//        var bTop = self.rockList[0].boom.bTop;
-//        $('body').stop().scrollTo(bTop - $(window).height() / 2, 1000,{
-//            onAfter: function(){
-//                debug("on after")
-//            }
-//        });
     },
 
     /**
@@ -110,6 +103,11 @@ var Rock = {
         self.doMove(self.rockList[curIndex], boom);
     },
 
+    /**
+     * 陨石具体移动的函数
+     * @param rock
+     * @param boom
+     */
     doMove: function (rock, boom) {
         var self = this;
         var rLeft = self.rocket.offset().left;

@@ -42,6 +42,9 @@ var Animate = {
         self.bindEvent();
     },
 
+    /**
+     * 绑定鼠标滚轮事件和滚动条事件
+     */
     bindEvent: function(){
         var self = this;
         //控制鼠标滚轮
@@ -73,11 +76,16 @@ var Animate = {
             }
         });
 
+        //绑定滚动条事件
         $(window).scroll(function(e){
             Rocket.move(e);
         });
     },
 
+    /**
+     * body对滚动条的滚动
+     * @param index
+     */
     doMove: function(index){
         var self = this;
         self.isRunning = true;
@@ -90,6 +98,10 @@ var Animate = {
         });
     },
 
+    /**
+     * 隐藏信息简介的box
+     * @param index
+     */
     hideBox: function (index) {
         var self = this;
         var layout = self.layoutList[index];
@@ -99,6 +111,10 @@ var Animate = {
         }
     },
 
+    /**
+     * 显示信息简介的box
+     * @param index
+     */
     showBox: function(index){
         var self = this;
         var layout = self.layoutList[index];
@@ -108,6 +124,9 @@ var Animate = {
         }
     },
 
+    /**
+     * 自动播放
+     */
     autoPlay: function(){
         var self = this;
         self.timer = setTimeout(function(){

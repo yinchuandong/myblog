@@ -31,6 +31,9 @@ var Rocket = {
         self.calcDegree();
     },
 
+    /**
+     * 初始化天体的边界
+     */
     initSkyBounds: function(){
         var self = this;
         var sky = $("#master-layout").find("div.sky");
@@ -56,6 +59,10 @@ var Rocket = {
     },
 
 
+    /**
+     * 火箭移动的主函数
+     * @param e
+     */
     move: function(e){
         var self = this;
         //控制岩石
@@ -87,6 +94,9 @@ var Rocket = {
 
     },
 
+    /**
+     * 根据不同的条件计算当前火箭的角度，并进行旋转
+     */
     calcDegree: function(){
         var self = this;
 
@@ -163,6 +173,10 @@ var Rocket = {
         });
     },
 
+    /**
+     * 通过当前的位置和当前运动的天体计算出rocket当前的left
+     * @returns {*}
+     */
     getRoute: function(){
         var self = this;
         var top = self.rocket.offset().top;
@@ -186,6 +200,12 @@ var Rocket = {
         return left;
     },
 
+    /**
+     * 判定当前rocket属于哪一个天体
+     * 如果超过了class=sky的区域，将会返回-1或者-2
+     * @param top
+     * @returns {number}
+     */
     checkArea: function (top) {
         var self = this;
         var len = self.skyBounds.length;
@@ -212,7 +232,10 @@ var Rocket = {
         }
         return curIndex;
     },
-    
+
+    /**
+     * 发射火箭
+     */
     launch: function () {
         var self = this;
         console.log(self.rTop);
@@ -232,7 +255,11 @@ var Rocket = {
             }
         });
     },
-    
+
+    /**
+     * 判断火箭是否向上运动
+     * @returns {boolean}
+     */
     isUp: function () {
         var self = this;
         if(self.rocket.offset().top - self.lastPos.top >= 0){
@@ -242,6 +269,10 @@ var Rocket = {
         }
     },
 
+    /**
+     * 判断火箭是否向右运动
+     * @returns {boolean}
+     */
     isRight: function(){
         var self = this;
         if(self.rocket.offset().left - self.lastPos.left >= 0){
