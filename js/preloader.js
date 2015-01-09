@@ -43,24 +43,25 @@
         },
         //图片准备好加载
         onPrepared: function(sum){
-            var self = this;
-            var percent = parseInt(40);
-            self.ballBox.attr("percent", percent);
-            self.ballBox.resumescroll({
-                state: "start"
-            });
-        },
-        //加载中
-        onLoading: function (i, sum) {
             //var self = this;
-            //self.ballBox.resumescroll({
-            //    state: "stop"
-            //});
-            //var percent = parseInt((i / sum)*100);
+            //var percent = parseInt(80);
             //self.ballBox.attr("percent", percent);
             //self.ballBox.resumescroll({
             //    state: "start"
             //});
+        },
+        //加载中
+        onLoading: function (i, sum) {
+            var self = this;
+            self.ballBox.resumescroll({
+                state: "stop"
+            });
+            var percent = parseInt((i / sum)*100);
+            self.ballBox.attr("percent", percent);
+            self.ballBox.resumescroll({
+                state: "start"
+            });
+            //debugger
         },
         //加载完成
         onComplete: function(len){

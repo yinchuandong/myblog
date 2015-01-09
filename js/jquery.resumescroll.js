@@ -24,12 +24,12 @@
 				ball2: $(val).find(".ball2"),
 				interval:70,
 				interval2:20,
-				moveReg: function(){
+				init: function(){
 					var _this = this;
-					if(this.num>=this.percent){
+					if(this.num >= this.percent){
 						return false;
 					}
-					this.num = 0;
+					this.num = parseInt( $(val).find(".lit-ball").text());
 					this.deg1 = parseInt(this.percent/50*180);
 					if(this.deg1>=180){
 						this.deg1 = 180;
@@ -56,6 +56,7 @@
 					// 这个脑残东西返回的是一个矩阵，等有空搞定它。
 					// this.t1 = setInterval(function(){_this.start1()},20);
 				},
+				//右半圆
 				start1: function(){
 					var _this = this;
 					this.count = this.count + 7.2;
@@ -71,13 +72,10 @@
 							"-moz-transform":"rotate(" + this.deg1 + "deg)",
 							"transform":"rotate(" + this.deg1 + "deg)"
 						});
-						//this.textBox.text(this.percent+"%");
 						if(this.deg2!=0){
-							this.textBox.text(this.num+"%");
-							this.start2();
+							this.num = this.num - 1;
 							this.t2 = setInterval(function(){_this.start2()},20);
 						}else{
-							debugger
 							this.textBox.text(this.percent+"%");
 							opts.onComplete();
 						}
@@ -90,10 +88,11 @@
 					this.ball2.css("-webkit-transform","rotate(" + this.count + "deg)");
 					this.t1 = setTimeout(function(){_this.start1()},_this.interval);
 				},
+				//左半圆
 				start2: function(){
 					var _this = this;
 					this.count2 = this.count2 + 3.6;
-					this.num = this.num +1;
+					this.num = this.num + 1;
 					// this.interval2=this.interval2-1;
 					clearTimeout(_this.t2);
 					if(this.count2>=this.deg2-7.2){
@@ -103,8 +102,7 @@
 						this.ball1.css("-o-transform","rotate(" + this.deg2 + "deg)");
 						this.ball1.css("-moz-transform","rotate(" + this.deg2 + "deg)");
 						this.textBox.text(this.percent+"%");
-						//this.textBox.text(this.num+"%");
-						debugger
+
 						//回调函数
 						opts.onComplete();
 						return false;
@@ -138,7 +136,7 @@
 			{
 				case 'start':
 					scrollDiv.percent = parseInt($(val).attr("percent"));
-					scrollDiv.moveReg();
+					scrollDiv.init();
 					scrollDiv.start1();
 					break;
 				case 'stop':
