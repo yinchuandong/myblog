@@ -27,8 +27,8 @@
 }
 
 .about-future-box{
-    width: 400px;
-    height: 310px;
+    width: 403px;
+    height: 319px;
     background: no-repeat url("../img/about-future-box.png");
     background-size: 100%;
     margin: 0 auto;
@@ -63,25 +63,25 @@
 }
 
 .work-box{
-    width: 400px;
-    height: 300px;
+    width: 523px;
+    height: 384px;
     background: no-repeat url("../img/work-box.png");
     background-size: 100%;
     /*margin: 0 auto;*/
     position: absolute;
-    top: -17%;
+    top: -22%;
     display: none;
 }
 .work-layout .box-left{
-    left: 4%;
+    left: 6%;
 }
 
 .work-layout .box-right{
-    right: 3%;
+    right: 6%;
 }
 .work-layout .box-mid{
     left: 50%;
-    margin-left: -12%;
+    margin-left: -15%;
 }
 
 /*---------奖杯----------*/
@@ -96,13 +96,13 @@
 }
 
 .trophy-box{
-    width: 400px;
-    height: 240px;
+    width: 366px;
+    height: 227px;
     background: no-repeat url("../img/trophy-box.png");
     background-size: 100%;
     margin: 0 auto;
     position: relative;
-    top: -25%;
+    top: -20%;
     display: none;
 }
 .trophy-small{
@@ -124,8 +124,8 @@
     text-align: center;
 }
 .about-me-box{
-    width: 400px;
-    height: 310px;
+    width: 422px;
+    height: 323px;
     background: no-repeat url("../img/about-me-box.png");
     background-size: 100%;
     margin: 0 auto 400px auto;
@@ -337,3 +337,52 @@
     position: fixed;
     overflow: hidden;
 }
+.info-box{
+    color: #fff;
+
+}
+.info-box a{
+    color: #fff
+}
+ .info-box p{
+     text-align: left;
+     padding-top: 16px;
+     line-height: 20px;
+     padding-left: 50px;
+     word-break: break-word;
+     width:298px;
+ }
+ .info-box p b{
+     margin-right: 12px;font-size: 12px;
+     text-shadow: 0 0 1px #ffffff;
+     border: 1px solid #fff;
+     margin-bottom: 8px;display: inline-block;
+     padding: 5px;border-radius: 8px;
+ }
+ .info-box span{
+     color:#faf59c;
+     font-size: 16px;
+     text-shadow:  0 0 1px #faf59c;
+ }
+ .work-box p{
+     padding-top: 20px !important;
+     width:424px !important;
+ }
+ .trophy-box h2{
+     padding-top: 18px !important;
+ }
+ .trophy-box p{
+     width: 282px !important;
+ }
+ .info-box h2{
+     font-size: 18px;
+     line-height: 30px;
+     padding-top: 28px;
+     text-align: center;font-weight: bold;
+ }
+
+ .info-box h3{
+     padding-right: 54px;
+     padding-top: 10px;
+     text-align: right;
+ }
