@@ -102,7 +102,7 @@
     background-size: 100%;
     margin: 0 auto;
     position: relative;
-    top: -10%;
+    top: -25%;
     display: none;
 }
 .trophy-small{
@@ -137,6 +137,13 @@
     position: fixed;
     left: 48%;
 }
+
+.rocket-comp{
+    position: absolute;
+    left: 34%;
+    top: 44%
+}
+
 .rocket-rotate{
     -webkit-transition: all 0.5s;
     -moz-transition: all 0.5s;

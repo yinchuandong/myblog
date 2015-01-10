@@ -108,6 +108,7 @@ var Animate = {
             onAfter: function(){
                 self.showBox(index);
                 self.isRunning = false;
+                Rock.sRockIn();
             }
         });
 

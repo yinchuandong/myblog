@@ -19,9 +19,9 @@ var Main = {
                     staticScrollLimit : false
                 });
 
+                Rocket.init();
                 Rock.init();
                 Planet.init();
-                Rocket.init();
                 Animate.init();
             }
         });

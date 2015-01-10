@@ -23,7 +23,10 @@ var Rocket = {
 
         //initialize the position of rocket
         self.rTop = self.windowHeight - self.rocket.height();
-        self.rocket.css({top: self.rTop});
+        self.rocket.css({
+            left: self.windowWidth/2 - self.rocket.width()/2 ,
+            top: self.rTop
+        });
         self.lastPos = self.rocket.offset();
         self.rotate(0);
     },
