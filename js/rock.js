@@ -141,6 +141,8 @@ var Rock = {
             }
         }
         rock.css(attr);
+
+        //var sRock = rock.
     },
 
     /**

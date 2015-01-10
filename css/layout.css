@@ -67,10 +67,21 @@
     height: 300px;
     background: no-repeat url("../img/work-box.png");
     background-size: 100%;
-    margin: 0 auto;
-    position: relative;
-    top: 5%;
+    /*margin: 0 auto;*/
+    position: absolute;
+    top: -17%;
     display: none;
+}
+.work-layout .box-left{
+    left: 4%;
+}
+
+.work-layout .box-right{
+    right: 3%;
+}
+.work-layout .box-mid{
+    left: 50%;
+    margin-left: -12%;
 }
 
 /*---------奖杯----------*/
