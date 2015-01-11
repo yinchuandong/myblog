@@ -152,6 +152,25 @@
     transition: all 0.5s;;
 }
 
+.rocket-float{
+    -webkit-animation: float-move 2s 0 linear infinite;
+    -moz-animation: float-move 2s 0 linear infinite;
+    -o-animation: float-move 2s 0 linear infinite;
+    animation: float-move 2s 0 linear infinite;
+}
+
+@keyframes float-move{
+    0%{opacity:1;margin-top: 0px}
+    50%{opacity:.8;margin-top: -20px}
+    100%{opacity:1;margin-top: 0px}
+}
+ @-webkit-keyframes float-move{
+     0%{opacity:1;margin-top: 0px}
+     50%{opacity:.5;margin-top: -20px}
+     100%{opacity:1;margin-top: 0px}
+ }
+
+
 .earth{
     width: 70%;
     display: block;
