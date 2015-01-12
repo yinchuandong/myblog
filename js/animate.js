@@ -70,18 +70,36 @@ var Animate = {
             }
             //debugger
             if (delta < 0) {
-                //向下运动
-                if(self.curIndex > 0){
-                    self.hideBox(self.curIndex);
-                    self.curIndex --;
-                    self.doMove(self.curIndex, -1);
+                if(self.isMac()){
+                    //向下运动
+                    if(self.curIndex > 0){
+                        self.hideBox(self.curIndex);
+                        self.curIndex --;
+                        self.doMove(self.curIndex, -1);
+                    }
+                }else{
+                    //向上运动
+                    if(self.curIndex < self.posList.length - 1){
+                        self.hideBox(self.curIndex);
+                        self.curIndex ++;
+                        self.doMove(self.curIndex, 1);
+                    }
                 }
             } else {
-                //向上运动
-                if(self.curIndex < self.posList.length - 1){
-                    self.hideBox(self.curIndex);
-                    self.curIndex ++;
-                    self.doMove(self.curIndex, 1);
+                if(self.isMac()){
+                    //向上运动
+                    if(self.curIndex < self.posList.length - 1){
+                        self.hideBox(self.curIndex);
+                        self.curIndex ++;
+                        self.doMove(self.curIndex, 1);
+                    }
+                }else{
+                    //向下运动
+                    if(self.curIndex > 0){
+                        self.hideBox(self.curIndex);
+                        self.curIndex --;
+                        self.doMove(self.curIndex, -1);
+                    }
                 }
             }
         });
@@ -142,6 +160,19 @@ var Animate = {
         var box = layout.find("div.box");
         if(box.length > 0){
             box.fadeIn();
+        }
+    },
+
+    /**
+     * 判断是否为mac
+     * @returns {boolean}
+     */
+    isMac: function(){
+        var pattern = new RegExp("mac", "i");
+        if(pattern.test(navigator.platform)){
+            return true;
+        }else{
+            return false;
         }
     },
 
