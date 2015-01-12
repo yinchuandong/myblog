@@ -48,6 +48,7 @@ var Animate = {
         self.layoutList.insert(0, $("#about-me"));
         self.layoutList.push(jFuture);
         self.bindEvent();
+        self.bindMobileEvent();
     },
 
     /**
@@ -58,49 +59,10 @@ var Animate = {
         //控制鼠标滚轮
         $("body").mousewheel(function (e, delta) {
             e.preventDefault();
-
-            //判断火箭是否被激活
-            if(!Rocket.isActivated && !Rocket.isRunning){
-                Rocket.launch();
-                return;
-            }
-
-            if(self.isRunning || !Rocket.isActivated){
-                return;
-            }
-            //debugger
-            if (delta < 0) {
-                if(self.isMac()){
-                    //向下运动
-                    if(self.curIndex > 0){
-                        self.hideBox(self.curIndex);
-                        self.curIndex --;
-                        self.doMove(self.curIndex, -1);
-                    }
-                }else{
-                    //向上运动
-                    if(self.curIndex < self.posList.length - 1){
-                        self.hideBox(self.curIndex);
-                        self.curIndex ++;
-                        self.doMove(self.curIndex, 1);
-                    }
-                }
-            } else {
-                if(self.isMac()){
-                    //向上运动
-                    if(self.curIndex < self.posList.length - 1){
-                        self.hideBox(self.curIndex);
-                        self.curIndex ++;
-                        self.doMove(self.curIndex, 1);
-                    }
-                }else{
-                    //向下运动
-                    if(self.curIndex > 0){
-                        self.hideBox(self.curIndex);
-                        self.curIndex --;
-                        self.doMove(self.curIndex, -1);
-                    }
-                }
+            if(self.isMac()){
+                self.runControl(delta);
+            }else{
+                self.runControl(-delta);
             }
         });
 
@@ -110,6 +72,61 @@ var Animate = {
             e.stopPropagation();
             Rocket.move(e);
         });
+    },
+
+    /**
+     * 绑定手机事件
+     */
+    bindMobileEvent: function(){
+        var self = this;
+        var body = document.getElementsByTagName("body")[0];
+        body.addEventListener("touchstart", function (e) {
+            self.startY = e.touches[0].pageY;
+        }, false);
+
+        body.addEventListener("touchmove", function (e) {
+            e.preventDefault();
+            var curY = e.touches[0].pageY;
+            var delta = self.startY - curY;
+            if(Math.abs(delta) < 50){
+                return;
+            }
+            self.runControl(delta);
+        }, false);
+    },
+
+    /**
+     * 具体的运动控制，
+     * @param {int} delta 向下小于0，向上大于0
+     */
+    runControl: function(delta){
+        var self = this;
+
+        //判断火箭是否被激活
+        if(!Rocket.isActivated && !Rocket.isRunning){
+            Rocket.launch();
+            return;
+        }
+
+        if(self.isRunning || !Rocket.isActivated){
+            return;
+        }
+        //debugger
+        if (delta < 0) {
+            //向下运动
+            if(self.curIndex > 0){
+                self.hideBox(self.curIndex);
+                self.curIndex --;
+                self.doMove(self.curIndex, -1);
+            }
+        } else {
+            //向上运动
+            if(self.curIndex < self.posList.length - 1){
+                self.hideBox(self.curIndex);
+                self.curIndex ++;
+                self.doMove(self.curIndex, 1);
+            }
+        }
     },
 
     /**

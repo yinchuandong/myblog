@@ -15,33 +15,18 @@ input, textarea, select,button{font-family:inherit;font-size:inherit;font-weight
 input, textarea, select{#font-size:100%;}
 legend{color:#000;}
 
-iframe{overflow:hidden;}/*TT啊,你个2B TT下面才有这个滚动条*/
-/* HTML5 display-role reset for older browsers */
+iframe{overflow:hidden}
 article, aside, details, figcaption, figure, 
 footer, header, hgroup, menu, nav, section {display: block;}
 iframe {border:0;}
 textarea{resize:vertical;overflow-y:auto;}/*resize风险未知,避免布局错乱先写上|auto为了ie下去掉默认侧边*/
 
 body{line-height:1.334;font-size:12px;}
-body{
-   min-width:1150px;
-   /*_width: expression( document.body.clientWidth > 950 ? "950px" : "auto" ); */
-}
+
 a{text-decoration:none;}
 a:hover{text-decoration:underline;}
 a div,a strong, a span, a i,a s{#cursor: hand}
-/*
-.os-mac{font-family:"ff-tisa-web-pro-1","ff-tisa-web-pro-2","Lucida Grande", "Hiragino Sans GB", "Hiragino Sans GB W3";}
-.os-vista input, .os-vista textarea, .os-vista select, .os-vista button,
-.os-win7 input, .os-win7 textarea, .os-win7 select, .os-win7 button,
-.os-win8 input, .os-win8 textarea, .os-win8 select, .os-win8 button,
-.os-vista, .os-win7, .os-win8{font-family:'微软雅黑'}
-.os-ios{font-family:HelveticaNeue}
-*/
-/*
-字体调整 by ytzong
-由于V8默认为雅黑，通过class调整字体已无必要
-*/
+
 body,
 input,
 textarea,

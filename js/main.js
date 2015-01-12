@@ -26,6 +26,9 @@ var Main = {
             }
         });
 
+        //a 标签在新窗口打开
+        $("a").attr({"target":"_blank"});
+
     }
 };
 
